@@ -1,6 +1,6 @@
-# memento
+# MEMEnto-mori
 
-> A Vue.js project
+> A simple Vue.js project for upload and evaluate memes :)
 
 ## Build Setup
 
