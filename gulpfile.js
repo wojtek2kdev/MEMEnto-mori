@@ -1,9 +1,19 @@
 var gulp = require('gulp');
 
-var vueify = require('gulp-vueify');
- 
-gulp.task('vueify', function () {
-  return gulp.src('components/**/*.vue')
-    .pipe(vueify())
-    .pipe(gulp.dest('./dist'));
+var browserify = require('browserify');
+var uglify = require('gulp-uglify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+// Use NODE_ENV=production in production # process.env.NODE_ENV = 'production'
+
+gulp.task('dist', function () {
+    return browserify('./src/js/main.js')
+      .transform('vueify')
+      .transform('babelify')
+      .plugin('vueify-extract-css', {out: 'style.css'})
+      .bundle()
+      .pipe(source('main.js'))
+      .pipe(buffer())
+      .pipe(uglify())
+      .pipe(gulp.dest('./dist'));
 });
