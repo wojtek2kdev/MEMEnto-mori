@@ -50,7 +50,7 @@ module.exports = {
             'sass': process.env.NODE_ENV === 'production' ? ExtractTextPlugin.extract({
               use: 'css-loader!sass-loader?indentedSyntax',
               fallback: 'vue-style-loader'
-            }) : ['vue-style-loader','css-loader','sass-loader']
+            }) : ['vue-style-loader','css-loader','sass-loader?indentedSyntax']
           }
           // other vue-loader options go here
         }
@@ -64,7 +64,7 @@ module.exports = {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]'
+          name: 'assets/[name].[ext]?[hash]'
         }
       },
       {
