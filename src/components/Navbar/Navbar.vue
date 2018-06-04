@@ -1,6 +1,6 @@
 <template>
-    <div id="navbar">
-              <nav class="navbar is-light">
+  <div id="navbar">
+  <nav class="navbar is-dark">
   <div class="navbar-brand">
     <a class="navbar-item" href="#">
     <big><b>MEMEnto-mori</b></big>
@@ -46,7 +46,7 @@
             </a>
           </p>
           <p class="control">
-            <a class="button is-dark is-medium" href="#">
+            <a class="button is-success is-medium" href="#">
               <span>Log In</span>
             </a>
           </p>
@@ -94,4 +94,7 @@ export default {
 
 </script>
 <style lang="sass" scoped>
+  #navbar
+    position: absolute;
+    width: 100%;
 </style>

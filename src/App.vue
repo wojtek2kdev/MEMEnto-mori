@@ -1,11 +1,12 @@
 <template>
     <div id="app">
       <navbar></navbar>
+      <feed>
+
+      </feed>
     </div>
 </template>
 <script>
-
-import Navbar from './components/Navbar/Navbar.vue'
 
 export default {
   name: 'app',
@@ -25,6 +26,8 @@ export default {
   #app
     background: url("./assets/background.jpg")
     background-size: cover
+    background-position: top center
+    background-attachment: fixed
     position: absolute;
 
     width: 100%
