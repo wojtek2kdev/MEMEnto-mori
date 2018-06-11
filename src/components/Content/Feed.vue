@@ -1,22 +1,23 @@
 <template>
     <div id="feed-container">
         <div class="news-feed">
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
-            <div class="news"></div>
+            <ul>
+                <news v-for="news in newses" :key="news"></news>
+            </ul>
         </div>
     </div>
 </template>
 <script>
 export default {
     name: "feed",
-    data(){
-        return{}
+    data() {
+       return{ 
+           newses: [
+               "link1",
+               "link2",
+               "link3"
+           ]
+       }
     }    
 }
 </script>
@@ -45,13 +46,6 @@ export default {
             display: grid
             grid-template-columns: 1fr
             grid-gap: 20px
-
-            .news 
-                background: grey
-                height: 600px
-                border: 2px solid black
-                border-radius: 20px;
-                margin: 30px
 
 
 </style>

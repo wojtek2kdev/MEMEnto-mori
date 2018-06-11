@@ -6,11 +6,13 @@ import 'buefy/lib/buefy.css'
 import App from './App.vue'
 import Navbar from './components/Navbar/Navbar.vue'
 import Feed from './components/Content/Feed.vue'
+import News from './components/Content/News.vue'
 
 Vue.use(Buefy)
 
 Vue.component('navbar', Navbar)
 Vue.component('feed', Feed)
+Vue.component('news', News)
 
 new Vue({
   el: '#app',
