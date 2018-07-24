@@ -14,7 +14,7 @@ Vue.component('navbar', Navbar)
 Vue.component('feed', Feed)
 Vue.component('news', News)
 
-new Vue({
+let app = new Vue({
   el: '#app',
   render: h => h(App)
 })

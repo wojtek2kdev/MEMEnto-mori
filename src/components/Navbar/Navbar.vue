@@ -15,10 +15,10 @@
   <div id="navbarExampleTransparentExample" class="navbar-menu">
     <div class="navbar-start">
       <a class="navbar-item" href="#">
-        <b>Contest</b>
+        <b>Add+</b>
       </a>
       <a class="navbar-item" href="#">
-        Top
+        News
       </a>
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link" href="#">
