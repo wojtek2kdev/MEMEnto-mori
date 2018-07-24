@@ -1,9 +1,7 @@
 <template>
-    <div id="feed-container">
+    <div id="feed-container" v-component="feed">
         <div class="news-feed">
-            <ul>
-                <news v-for="news in newses" :key="news"></news>
-            </ul>
+            <slot></slot>
         </div>
     </div>
 </template>
@@ -32,7 +30,7 @@ export default {
 
         .news-feed
 
-            width: 550px
+            width: 650px
             height: auto
 
             margin-top: 80px
