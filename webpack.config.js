@@ -3,8 +3,6 @@ var webpack = require('webpack')
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-process.env.NODE_ENV = 'production'
-
 module.exports = {
   entry: {
     main: './src/main.js',
