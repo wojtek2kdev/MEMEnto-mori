@@ -1,14 +1,19 @@
 var path = require('path')
 var webpack = require('webpack')
 
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+
+process.env.NODE_ENV = 'production'
 
 module.exports = {
-  entry: './src/main.js',
+  entry: {
+    main: './src/main.js',
+    login: './src/login.js'
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -113,6 +118,6 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.LoaderOptionsPlugin({
       minimize: true
     }),
-    new ExtractTextPlugin("style.css")
+    new ExtractTextPlugin("assets/[name]/style.css")
   ])
 }

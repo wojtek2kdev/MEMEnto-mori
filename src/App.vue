@@ -1,10 +1,10 @@
 <template>
-    <div id="app">
+    <background>
       <navbar></navbar>
       <feed>
         <news v-for="news of newses" :key="news" :src="news"></news>
       </feed>
-    </div>
+    </background>
 </template>
 <script>
 
@@ -26,18 +26,7 @@ export default {
 
 </script>
 
-<style lang="sass" scoped>
-
-  #app
-    background: url("./assets/background.jpg")
-    background-size: cover
-    background-position: top center
-    background-attachment: fixed
-    position: absolute;
-
-    width: 100%
-    height: 100%
-    
+<style lang="sass" scoped>  
   .light-dark
     background: rgba(20,20,20,0.9);
 </style>
