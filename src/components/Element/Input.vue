@@ -19,8 +19,30 @@ export default {
         color: white;
         font-weight: bold;
 
+        cursor: pointer;
+
+        border-bottom: 5px solid darkgreen !important;
+
+        &:hover
+            border-bottom: 5px solid green !important;
+            background: darkgreen;
+
     .form-input
 
-        border: none;
+        border: 0;
+        border-bottom: 5px solid #ccc;
+
+        padding-left: 20px;
+
+        font-size: 1.2rem;
+
+        &:focus
+           outline: 0;
+
+        &:valid
+            border-bottom: 5px solid green;
+        
+        &:focus:invalid
+            border-bottom: 5px solid red;
 
 </style>

@@ -20,6 +20,7 @@ export default {
 <style lang="sass" scoped>
 
     @import '../../../assets/login/mixins.scss'
+    @import '../../../assets/global/mixins.scss'
 
     .form
         
@@ -37,10 +38,7 @@ export default {
 
             margin-top: 32px;
 
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        @include position('center')
 
         background: #eee;
         box-shadow: 1px 1px 2px 1px #888;
@@ -57,9 +55,6 @@ export default {
                 flex-grow: 1;
                 
                 margin: 5px 0px 5px 0px;
-                padding-left: 20px;
-
-                font-size: 1.2rem;
 
 </style>
 
