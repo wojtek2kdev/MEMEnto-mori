@@ -39,15 +39,15 @@
       <div class="navbar-item">
         <div class="field is-grouped">
           <p class="control">
-            <a class="button is-medium">
+            <a class="button is-medium" href="/register">
               <span>
-                Sign In
+                Sign Up
               </span>
             </a>
           </p>
           <p class="control">
-            <a class="button is-success is-medium" href="#">
-              <span>Log In</span>
+            <a class="button is-success is-medium" href="/login">
+              <span>Sign In</span>
             </a>
           </p>
         </div>
