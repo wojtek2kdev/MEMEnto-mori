@@ -6,9 +6,9 @@
   "license": "ISC",
   "private": true,
   "scripts": {
-    "dev": "npm run vue",
+    "dev": "npm run server | npm run vue",
     "vue": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "server": "pm2 start index.js --watch --name server",
+    "server": "pm2 start app.js --watch --name server",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
