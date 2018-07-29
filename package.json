@@ -12,6 +12,8 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "bcrypt": "^3.0.0",
+    "sequelize": "^4.38.0",
     "vue": "^2.5.11"
   },
   "browserslist": [
@@ -34,6 +36,7 @@
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.5.3",
+    "pg": "^7.4.3",
     "sass-loader": "^6.0.6",
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.4.4",

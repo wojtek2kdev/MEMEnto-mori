@@ -2,7 +2,7 @@
   <div id="navbar">
   <nav class="navbar is-dark">
   <div class="navbar-brand">
-    <a class="navbar-item" href="#">
+    <a class="navbar-item" href="/">
     <big><b>MEMEnto-mori</b></big>
     </a>
     <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
