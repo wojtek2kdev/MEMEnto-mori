@@ -1,5 +1,5 @@
 <template>
-   <form action="" method="post">
+   <form action="/login" method="post">
        <div class="form">
             <div class="form-content">
                 <m-input class="form-input" type="text" name="login" placeholder="username"></m-input>
