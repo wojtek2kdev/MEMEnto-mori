@@ -17,15 +17,3 @@ app.listen(8081, () => {
 -- Sequelize example usage 
 */
 
-const User = sequelize.define('users', {
-  username: Sequelize.CHAR(20),
-  password: Sequelize.CHAR(64)
-});
-
-const user = User.build({
-    username: 's',
-    password: 'sequelize' 
-});
-
-user.save();
-
