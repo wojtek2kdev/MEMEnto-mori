@@ -13,9 +13,6 @@ const User = database.define('users', {
 		unique: {
 			args: true,
 			msg: `This user already exists!`
-		},
-		get(){
-			return this.getDataValue(`username`);
 		}
     },
     password_digest: {
@@ -35,9 +32,6 @@ const User = database.define('users', {
 				}
 			}
 		},
-		get(){
-			return this.getDataValue(`password`);
-		}
     },
     password_confirmation: {
 		type: Sequelize.VIRTUAL,
@@ -45,9 +39,6 @@ const User = database.define('users', {
 		validate: {
 			notEmpty: true,
 		},
-		get(){
-			return this.getDataValue(`password_confirmation`);
-		}
     }
 }, {
     freezeTableName: true,
@@ -70,18 +61,20 @@ const checkPasswordConfirmation = (user, options, callback) => {
 };
 
 const hashPassword = (user, options, callback) => {
-	bcrypt.hash(user.get('password'), 10, (err, hash) => {
-		if (err) return callback(err);
-		user.set('password_digest', hash);
-		return callback(null, options);
+	return new Promise(resolve => {
+		bcrypt.hash(user.password, 10, (err, hash) => {
+			if (err) return callback(err);
+			user.set('password_digest', hash);			
+			resolve(() => callback(null, options));
+		});
 	});
 };
 
-User.beforeCreate((user, options, callback) => {
+User.beforeCreate( async (user, options, callback) => {
 	if (user.password)
 		if (checkPasswordConfirmation(user, options, callback)){ 
-			hashPassword(user, options, callback); 
-		}
+			await hashPassword(user, options, callback);		 
+		}		
 	else
 		return callback(null, options);
 });
