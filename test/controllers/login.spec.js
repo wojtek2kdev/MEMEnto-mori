@@ -1,4 +1,4 @@
-const LoginController = require('../../src/controllers/LoginController');
+const login = require('../../src/controllers/LoginController');
 const User = require('../../src/models/user');
 const expect = require('chai').expect;
 
@@ -18,16 +18,16 @@ describe(`Authentication login form`, () => {
     
     before(() => createUser(`test_user`, `P4ssword!`));
 
-    it(`Authentication should be correct`, () => {
+    it(`Authentication should be correct`, async () => {
 
-        const user = {
-            username: `test_user`,
-            password: `P4ssword!`,
+        const request = {
+            body: {
+                username: `test_user`,
+                password: `P4ssword!`
+            }
         }
 
-        const login = new LoginController(user);
-
-        const authResult = login.auth();
+        const authResult = await login.auth(request);
 
         expect(authResult).to.be.true;
 
@@ -35,22 +35,21 @@ describe(`Authentication login form`, () => {
 
     before(() => createUser(`test_user`, `P4ssword!`));
 
-    it(`If authentication isn't correct`, () => {
+    it(`If authentication isn't correct`, async function(){
         
-        const user = {
-            username: `test_user`,
-            password: `P4ssword`,
-        };
+        const request = {
+            body: {
+                username: `test_user`,
+                password: `P4ssword`
+            }
+        }
 
-        const login = new LoginController(user);
-
-        const authResult = login.auth();
-
-        const error = new Error(`Username or password incorrect`);
-        error.status = 401;
-
-        expect(authResult).to.be.equal(error);
-
+        try {
+             await login.auth(request);
+        }catch(err){
+            expect(err.message).to.be.equal(`Username or password incorrect`);
+            expect(err.status).to.be.equal(401);
+        }
     });
 
 });

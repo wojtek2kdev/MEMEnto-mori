@@ -43,15 +43,15 @@ const User = database.define('users', {
 }, {
     freezeTableName: true,
     indexes: [{unique: true, fields: ['username']}],
-    instanceMethods: {
-        authenticate: value => {
-			if (bcrypt.compareSync(value, this.password_digest))
-				return this;
-			else
-				return false;
-		}
-    }
+
 });
+
+User.prototype.authenticate = function (password) {
+		if (bcrypt.compareSync(password, this.password_digest))
+			return this;
+		else
+			return false;
+};
 
 const checkPasswordConfirmation = (user, options, callback) => {
 	if (user.password != user.password_confirmation) {
