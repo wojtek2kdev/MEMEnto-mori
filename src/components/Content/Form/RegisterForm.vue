@@ -8,7 +8,7 @@
                 <m-input class='register-input' type="text" required pattern="^.{1,20}$"></m-input>
                 <h5 class='input-label'>Password</h5>
                 <h4 class="input-pattern">(min. 8 signs, min. 1 capital letter, min. 1 number)</h4>
-                <m-input class='register-input' type="password" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"></m-input>
+                <m-input class='register-input' type="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(.*[#$^+=!*()@%&])?.{8,}$"></m-input>
                 <p id="message" class="register-message"></p>
                 <div class="g-recaptcha captcha" data-sitekey="6LdB9GYUAAAAAIMyhR_pTLU6j2AHVwzsHUcnfISu"></div>
                 <m-input class='register-submit' type="submit" value="Send"></m-input>
