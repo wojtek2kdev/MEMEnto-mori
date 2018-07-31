@@ -14,11 +14,15 @@
   },
   "dependencies": {
     "bcrypt": "^3.0.0",
+    "body-parser": "^1.18.3",
     "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "commander": "^2.16.0",
+    "express-recaptcha": "^4.0.2",
     "glob": "^7.1.2",
     "sequelize": "^4.38.0",
-    "vue": "^2.5.11"
+    "vue": "^2.5.11",
+    "vuex": "^3.0.1"
   },
   "browserslist": [
     "> 1%",

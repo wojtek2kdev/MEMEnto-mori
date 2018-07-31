@@ -1,14 +1,18 @@
 const User = require('../models/user');
 
-exports.auth = async (req, res, next) => {
+const auth = async (req, res, next) => {
+    await authorize(req.body);
+};
+
+const authorize = async (login_details) => {
 
     const user = await User.findOne({
         where: {
-            username: req.body.username
+            username: login_details.username
         },
     });
 
-     if(await user.authenticate(req.body.password)){
+     if(await user.authenticate(login_details.password)){
         return true;
     }else{
         const error = new Error(`Username or password incorrect`);
@@ -17,3 +21,7 @@ exports.auth = async (req, res, next) => {
     }
 
 };
+
+exports.auth = auth;
+exports.authorize = authorize;
+

@@ -1,13 +1,17 @@
 const path = require('path');
 
 exports.home = (req, res) => {
-    res.sendFile(path.join(__dirname, "../../index.html"));
+    send(res, "../../index.html");
 }
 
 exports.login = (req, res) => {
-    res.sendFile(path.join(__dirname, "../../login.html"));
+    send(res, "../../login.html");
 }
 
 exports.register = (req, res) => {
-    res.sendFile(path.join(__dirname, "../../register.html"));
+    send(res, "../../register.html");
 }
+
+const send = (res,file) => {
+    res.sendFile(path.join(__dirname, file));
+};

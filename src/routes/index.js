@@ -3,8 +3,8 @@ const router = express.Router();
 
 const PagesController = require('../controllers/PagesController');
 
-router.get('/', PagesController.home);
-router.get('/login', PagesController.login);
-router.get('/register', PagesController.register);
+router.get('/', 
+    PagesController.home
+);
 
 module.exports = router;

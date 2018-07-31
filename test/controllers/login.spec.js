@@ -20,16 +20,14 @@ describe(`Authentication login form`, () => {
 
     it(`Authentication should be correct`, async () => {
 
-        const request = {
-            body: {
-                username: `test_user`,
-                password: `P4ssword!`
-            }
-        }
+        const login_details = {
+            username: "test_user",
+            password: "P4ssword!"
+        };
 
-        const authResult = await login.auth(request);
+        const login_result = await login.authorize(login_details);
 
-        expect(authResult).to.be.true;
+        expect(login_result).to.be.true;
 
     });
 
@@ -37,15 +35,14 @@ describe(`Authentication login form`, () => {
 
     it(`If authentication isn't correct`, async function(){
         
-        const request = {
-            body: {
-                username: `test_user`,
-                password: `P4ssword`
-            }
+        const login_details = {
+            username: `test_user`,
+            password: `P4ssword`
         }
+    
 
         try {
-             await login.auth(request);
+             await login.authorize(login_details);
         }catch(err){
             expect(err.message).to.be.equal(`Username or password incorrect`);
             expect(err.status).to.be.equal(401);
