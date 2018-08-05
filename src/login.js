@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
+import { store } from './store/store'
 
 import Login from './Login.vue'
 import Background from './components/Background.vue'
@@ -16,6 +17,7 @@ Vue.component('login-form', LoginForm)
 Vue.component('m-input', Input)
 
 let login = new Vue({
+    store: store,
     el: '#app',
     render: h => h(Login)
 })

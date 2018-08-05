@@ -4,14 +4,14 @@ const router = express.Router();
 const LoginController = require('../controllers/LoginController');
 const PagesController = require('../controllers/PagesController');
 
-const catchAsync = require('../middlewares/errors').catchAsync;
+const errorHandler = require('../middlewares/errors');
 
 router.get(`/`,
     PagesController.login
 );
 
 router.post(`/`,
-    catchAsync(LoginController.auth)
+    errorHandler.catchAsync(LoginController.auth)
 );
 
 module.exports = router;

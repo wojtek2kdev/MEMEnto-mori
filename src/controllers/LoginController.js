@@ -1,7 +1,14 @@
 const User = require('../models/user');
 
-const auth = async (req, res, next) => {
-    await authorize(req.body);
+const auth = async (req, res, next) => {   
+
+    const result = await authorize(req.body);
+
+    if(result){
+        req.session.user = result;
+        res.redirect('/');
+    }
+
 };
 
 const authorize = async (login_details) => {
@@ -12,13 +19,15 @@ const authorize = async (login_details) => {
         },
     });
 
+    if(user){
      if(await user.authenticate(login_details.password)){
-        return true;
-    }else{
-        const error = new Error(`Username or password incorrect`);
-        error.status = 401;
-        throw error;
+        return user.get({plain: true});
+     }
     }
+
+    const error = new Error(`Username or password incorrect`);
+    error.status = 401;
+    throw error;
 
 };
 

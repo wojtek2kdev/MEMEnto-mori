@@ -3,7 +3,3 @@ exports.catchAsync = (fn) => {
         fn(req, res, next).catch(err => next(err));
     }
 };
-
-exports.catchErrors = (err, req, res, next) => {
-    res.send(err.status, {error: err.message});
-};

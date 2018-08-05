@@ -1,6 +1,7 @@
 const path = require('path');
 
 exports.home = (req, res) => {
+    console.log(req.session.user);
     send(res, "../../index.html");
 }
 

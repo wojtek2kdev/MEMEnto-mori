@@ -1,19 +1,36 @@
 <template>
-   <form action="/login" method="post">
+   <form @submit.prevent="login">
        <div class="form">
             <div class="form-content">
                 <m-input class="form-input" type="text" name="username" placeholder="username"></m-input>
                 <m-input type="password" class="form-input" name="password" placeholder="password"></m-input>
+                <p class="form-error">{{ error }}</p>
                 <m-input type="submit" value="LOGIN"></m-input>
             </div>
        </div>
    </form>     
 </template>
 <script>
+import axios from 'axios';
+
 export default {
     name: 'login-form',
-    data(){
-        return{}
+    data: function(){
+        return{
+            error: 'ssss'
+        }
+    },
+    methods: {
+        login: function(){
+            axios.post('/login', {
+                username: this.$store.state.username,
+                password: this.$store.state.password
+            }).then(res => {
+                console.log(document.cookie);
+            }).catch(err => {
+                this.error = "Username or password incorrect!";
+            });
+        }
     }
 }
 </script>
@@ -55,6 +72,12 @@ export default {
                 flex-grow: 1;
                 
                 margin: 5px 0px 5px 0px;
+
+            .form-error
+                text-align: center;
+                color: red;
+
+                transition: all 2s linear;
 
 </style>
 
