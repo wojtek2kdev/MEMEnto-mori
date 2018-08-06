@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
+import { store } from './store/store';
 
 import Register from './Register.vue'
 import Navbar from './components/Navbar/Navbar.vue'
@@ -16,6 +17,7 @@ Vue.component('register-form', RegisterForm)
 Vue.component('m-input', Input)
 
 let register = new Vue({
+    store: store,
     el: '#app',
     render: h => h(Register)
 })

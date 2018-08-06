@@ -12,8 +12,12 @@ const login = async (req, res) => {
     );
 }
 
-const register = (req, res) => {
-    send(res, "../../register.html");
+const register = async (req, res) => {
+    await checkSession(
+        req, 
+        () => res.redirect("/"),
+        () => send(res, "../../register.html")
+    );
 }
 
 const checkSession = (req, onActive, onInactive) => {

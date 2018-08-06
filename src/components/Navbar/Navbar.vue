@@ -100,14 +100,14 @@ export default {
     },
     methods: {
         isSessionActive: function(){
-          if(cookie.get("username")){
-            return true;
-          }
-          return false;
+          return !!this.$store.state.user.id;
         },
         getUsername: function(){
-          return cookie.get("username");
+          return this.$store.state.user.username;
         }
+    },
+    created: function(){
+      this.$store.commit('fetchUser');
     }
 }
 

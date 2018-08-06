@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
+import { store } from './store/store'
 
 // my components
 import App from './App.vue'
@@ -17,6 +18,7 @@ Vue.component('feed', Feed)
 Vue.component('news', News)
 
 let app = new Vue({
+  store: store,
   el: '#app',
-  render: h => h(App),
+  render: h => h(App)
 })
