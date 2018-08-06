@@ -17,16 +17,21 @@ export default {
     name: 'login-form',
     data: function(){
         return{
-            error: 'ssss'
+            error: ''
         }
     },
     methods: {
-        login: function(){
+        login: function(event){
+
+            axios.defaults.withCredentials = true;
+
+            const state = this.$store.state;
+
             axios.post('/login', {
-                username: this.$store.state.username,
-                password: this.$store.state.password
+                username: state.username,
+                password: state.password
             }).then(res => {
-                console.log(document.cookie);
+                window.location = "/";
             }).catch(err => {
                 this.error = "Username or password incorrect!";
             });

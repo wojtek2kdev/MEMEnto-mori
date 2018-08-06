@@ -11,6 +11,7 @@ router.get(`/`,
 );
 
 router.post(`/`,
+    LoginController.checkIfSessionActive,
     errorHandler.catchAsync(LoginController.auth)
 );
 

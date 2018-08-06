@@ -1,18 +1,36 @@
 const path = require('path');
 
-exports.home = (req, res) => {
-    console.log(req.session.user);
+const home = (req, res) => {
     send(res, "../../index.html");
 }
 
-exports.login = (req, res) => {
-    send(res, "../../login.html");
+const login = async (req, res) => {
+    await checkSession(
+        req, 
+        () => res.redirect("/"),
+        () => send(res, "../../login.html")
+    );
 }
 
-exports.register = (req, res) => {
+const register = (req, res) => {
     send(res, "../../register.html");
 }
+
+const checkSession = (req, onActive, onInactive) => {
+    return new Promise(function(resolve, reject){
+        if(req.session.user){
+            onActive();
+        }else{
+            onInactive();
+        }
+        resolve();
+    });
+};
 
 const send = (res,file) => {
     res.sendFile(path.join(__dirname, file));
 };
+
+exports.home = home;
+exports.login = login;
+exports.register = register;

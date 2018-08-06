@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueRouter from  'vue-router'
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
 import { store } from './store/store'
@@ -9,6 +10,7 @@ import Navbar from './components/Navbar/Navbar.vue'
 import LoginForm from './components/Content/Form/LoginForm.vue'
 import Input from './components/Element/Input.vue'
 
+Vue.use(VueRouter)
 Vue.use(Buefy)
 
 Vue.component('background', Background)

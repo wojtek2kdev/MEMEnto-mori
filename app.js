@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+
+const sessionConfig = require('./src/config/session');
 
 //routes
 const mainRoutes = require('./src/routes/index');
@@ -12,6 +15,8 @@ app.use(`/dist`, express.static(__dirname + "/dist"));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(session(sessionConfig));
 
 app.use(`/`, mainRoutes);
 app.use(`/login`, loginRoutes);

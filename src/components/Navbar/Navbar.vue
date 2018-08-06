@@ -38,16 +38,21 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="field is-grouped">
-          <p class="control">
+          <p v-if="!isSessionActive()" class="control">
             <a class="button is-medium" href="/register">
               <span>
                 Sign Up
               </span>
             </a>
           </p>
-          <p class="control">
+          <p v-if="!isSessionActive()" class="control">
             <a class="button is-success is-medium" href="/login">
               <span>Sign In</span>
+            </a>
+          </p>
+          <p v-else class="control">
+            <a class="button is-error is-medium" href="/logout">
+              <span>Log Out</span>
             </a>
           </p>
         </div>
@@ -85,10 +90,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+import cookie from 'js-cookie';
+
 export default {
+
     name: 'navbar',
     data(){
         return{}
+    },
+    methods: {
+        isSessionActive: function(){
+          if(cookie.get("username")){
+            return true;
+          }
+          return false;
+        },
+        getUsername: function(){
+          return cookie.get("username");
+        }
     }
 }
 
