@@ -1,5 +1,5 @@
 <template>
-    <input v-if="type != 'submit'" v-model='content' class='form-input' :type="type" :placeholder="placeholder" @input="updateInputValue">
+    <input v-if="type != 'submit'" v-model='content' :name="this.name" class='form-input' :type="type" :placeholder="placeholder" @input="updateInputValue">
     <input v-else class='form-input submit' type="submit" :value="value">      
 </template>
 <script>
@@ -45,11 +45,5 @@ export default {
 
         &:focus
            outline: 0;
-
-        &:valid
-            border-bottom: 5px solid green;
-        
-        &:focus:invalid
-            border-bottom: 5px solid red;
 
 </style>

@@ -5,12 +5,30 @@ const Recaptcha = require('express-recaptcha').Recaptcha;
 
 const recaptcha = new Recaptcha(recaptchaConfig.SITE, recaptchaConfig.SECRET);
 
-exports.checkRecaptcha = (req, res) => {
+const checkRecaptcha = (req, res, next) => {
     if(req.recaptcha.error){
-        console.log(`ERROR!`);
-    }else{
-        console.log(`SUCCESS!`);
+        res.redirect("/register");
     }
+    console.log(`SUCCESS!`);
+    next();
 };
 
+const addUser = async (req, res) => {
+
+    const register_details = req.body;
+
+    const user = await User.create({
+        username: register_details.username,
+        password: register_details.password,
+        password_confirmation: register_details.password_confirmation
+    });
+
+    res.json({
+        username: user.username
+    });
+
+};
+
+exports.addUser = addUser;
+exports.checkRecaptcha = checkRecaptcha;
 exports.recaptcha = recaptcha;
