@@ -20,6 +20,14 @@ const register = async (req, res) => {
     );
 }
 
+const addMeme = async (req, res) => {
+    await checkSession(
+        req,
+        () => send(res, "../../add.html"),
+        () => res.redirect("/auth/login")
+    );
+};
+
 const checkSession = (req, onActive, onInactive) => {
     return new Promise(function(resolve, reject){
         if(req.session.user){
@@ -38,3 +46,4 @@ const send = (res,file) => {
 exports.home = home;
 exports.login = login;
 exports.register = register;
+exports.addMeme = addMeme;

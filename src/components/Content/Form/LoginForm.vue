@@ -27,7 +27,7 @@ export default {
 
             const state = this.$store.state;
 
-            axios.post('/login', {
+            axios.post('/auth/login', {
                 username: state.username,
                 password: state.password
             }).then(res => {

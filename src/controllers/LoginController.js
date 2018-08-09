@@ -42,6 +42,14 @@ const authorize = async (login_details) => {
 
 };
 
+const logout = (req, res, next) => {
+    if(req.session.user){
+        req.session.destroy();
+    }
+    res.redirect("/");
+};
+
+exports.logout = logout;
 exports.auth = auth;
 exports.authorize = authorize;
 exports.checkIfSessionActive = checkIfSessionActive;

@@ -14,7 +14,7 @@
 
   <div id="navbarExampleTransparentExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item" href="#">
+      <a class="navbar-item" href="/add">
         <b>Add+</b>
       </a>
       <div class="navbar-item has-dropdown is-hoverable">
@@ -43,12 +43,12 @@
             </a>
           </p>
           <p v-if="!isSessionActive()" class="control">
-            <a class="button is-success is-medium" href="/login">
+            <a class="button is-success is-medium" href="/auth/login">
               <span>Sign In</span>
             </a>
           </p>
           <p v-else class="control">
-            <a class="button is-error is-medium" href="/logout">
+            <a class="button is-error is-medium" href="/auth/logout">
               <span>Log Out</span>
             </a>
           </p>
