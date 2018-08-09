@@ -4,9 +4,9 @@
             <h1 class="form-title">{{ title }}</h1>
             <h2 class="form-subtitle">{{ subtitle }}</h2>
             <h2 class="form-subtitle">{{ info }}</h2>
-            <form method="post">
+            <form method="post" action="/add">
                 <label class="input-label">Title  <span class="input-label--info">(1-50 signs)</span></label>
-                <m-input required class="form-input form-input--wide" pattern="^.{1,50}$"></m-input>
+                <m-input required class="form-input form-input--wide" pattern="^.{1,50}$" name="title"></m-input>
                 <label class="input-label">Category</label>
                 <select required name="category" id="category" class="form-input">
                     <option disabled selected value> -- select an option -- </option>
@@ -14,7 +14,7 @@
                     <option value="Black humor">Black humor</option>
                 </select>
                 <label class="input-label">Meme</label>
-                <m-input required type="file" accept="image/*" class="form-input form-input--file"></m-input>
+                <m-input required type="file" accept="image/*" class="form-input form-input--file" name="meme"></m-input>
                 <div class="g-recaptcha captcha" data-sitekey="6LdB9GYUAAAAAIMyhR_pTLU6j2AHVwzsHUcnfISu"></div>
                 <m-input class="form-submit" type="submit" value="Upload meme!"></m-input>
             </form>
