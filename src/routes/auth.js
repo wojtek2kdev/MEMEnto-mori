@@ -3,6 +3,7 @@ const router = express.Router();
 
 const LoginController = require('../controllers/LoginController');
 const PagesController = require('../controllers/PagesController');
+const SessionController = require('../controllers/SessionController');
 
 const errorHandler = require('../middlewares/errors');
 
@@ -11,7 +12,7 @@ router.get(`/login`,
 );
 
 router.get(`/logout`,
-    LoginController.logout
+    SessionController.logout
 );
 
 router.post(`/login`,
