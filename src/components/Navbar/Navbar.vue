@@ -17,9 +17,6 @@
       <a class="navbar-item" href="#">
         <b>Add+</b>
       </a>
-      <a class="navbar-item" href="#">
-        News
-      </a>
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link" href="#">
           Categories
