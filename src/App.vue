@@ -8,21 +8,14 @@
 </template>
 <script>
 
-let memesPath = "src/assets/memes/"
-
 export default {
   name: 'app',
   data () {
     return {
-        newses: [
-          memesPath + "janusz1.jpg",
-          memesPath + "janusz2.jpg",
-          memesPath + "janusz3.jpg"
-        ]
+
     }
   }
 }
-
 
 </script>
 
