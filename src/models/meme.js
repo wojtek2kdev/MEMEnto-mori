@@ -12,7 +12,11 @@ const Meme = database.define('meme', {
     },
     title: {
         type: Sequelize.STRING(50),
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+            len: [1,50]
+        }
     }, 
     owner: {
         type: Sequelize.STRING(20),

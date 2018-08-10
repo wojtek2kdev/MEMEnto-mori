@@ -9,7 +9,7 @@ const router = express.Router();
 const checkSession = require('../middlewares/check-session');
 
 router.get('/', 
-    checkSession(PagesController.home, PagesController.register)
+    checkSession.onInactiveSession(PagesController.register)
 );
 
 router.post('/', 

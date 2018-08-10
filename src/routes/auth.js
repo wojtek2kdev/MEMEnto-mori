@@ -9,11 +9,11 @@ const errorHandler = require('../middlewares/errors');
 const checkSession = require('../middlewares/check-session');
 
 router.get(`/login`,
-    checkSession(PagesController.home, PagesController.login)
+    checkSession.onInactiveSession(PagesController.login)
 );
 
 router.get(`/logout`,
-    checkSession(SessionController.logout, PagesController.home)
+    checkSession.onActiveSession(SessionController.logout)
 );
 
 router.post(`/login`,

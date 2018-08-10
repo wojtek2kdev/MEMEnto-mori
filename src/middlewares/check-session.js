@@ -1,11 +1,22 @@
-const checkSession = (onActive, onInactive) => {
+const onActiveSession = fn => {
     return (req, res, next) => {
         if(req.session.user){
-            onActive(req, res, next);
+            fn(req, res, next);
         }else{
-            onInactive(req, res, next);
+            res.redirect("/auth/login");
         }
-    }
+    };
 };
 
-module.exports = checkSession;
+const onInactiveSession = fn => {
+    return (req, res, next) => {
+        if(!req.session.user){
+            fn(req, res, next);
+        }else{
+            res.redirect("/");
+        }
+    };
+};
+
+exports.onActiveSession = onActiveSession;
+exports.onInactiveSession = onInactiveSession;

@@ -1,18 +1,16 @@
 const Meme = require('../models/meme');
 
-const moveImage = image => {
+const hash = require('object-hash');
+
+const moveImage = (req, res, next) => {
+    const image = req.files.meme;
+    image.mv(`/static/images/${req.body.category}/${hash(image)}`);
+};
+
+const resizeImage = (req, res, next) => {
 
 };
 
-const resizeImage = image => {
+const addPathToDatabase = async (req, res, next) => {
 
 };
-
-const checkSession = (req, res, next) => {
-    if(!req.session.user){
-        res.redirect("/auth/login");
-    }
-    next();
-};
-
-exports.checkSession = checkSession;
