@@ -6,10 +6,12 @@ const recaptcha = new Recaptcha(recaptchaConfig.SITE, recaptchaConfig.SECRET);
 
 const checkRecaptcha = (req, res, next) => {
     if(req.recaptcha.error){
-        res.redirect("/register");
+        console.log("ERROR");
+        
+        res.redirect("back");
+    }else{
+        next();
     }
-    console.log(`SUCCESS!`);
-    next();
 };
 
 exports.checkRecaptcha = checkRecaptcha;
