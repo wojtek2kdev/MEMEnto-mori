@@ -1,7 +1,6 @@
 const User = require('../models/user');
 
 const checkIfSessionActive = (req, res, next) => {
-    console.log(req.session.user);
     if(req.session.user){
         res.status(400);
         res.send("You are already logged in.");
@@ -16,7 +15,6 @@ const auth = async (req, res, next) => {
 
     if(result){
         req.session.user = result;
-        res.cookie('username', result.username, {expires: new Date(Date.now() + 10000)});
         res.end();
     }
 

@@ -6,12 +6,14 @@ const errorHandler = require('../middlewares/errors');
 const express = require('express');
 const router = express.Router();
 
+const checkSession = require('../middlewares/check-session');
+
 router.get('/', 
-    PagesController.register
+    checkSession(PagesController.home, PagesController.register)
 );
 
 router.post('/', 
-    RegisterController.recaptcha.middleware.verify,
+    CaptchaController.recaptcha.middleware.verify,
     CaptchaController.checkRecaptcha,
     errorHandler.catchAsync(RegisterController.addUser)
 );

@@ -18,7 +18,7 @@ const Meme = database.define('meme', {
         type: Sequelize.STRING(20),
         allowNull: false
     },
-    category: {
+    category_name: {
         type: Sequelize.STRING(30),
         allowNull: false
     }
@@ -27,6 +27,6 @@ const Meme = database.define('meme', {
 });
 
 Meme.belongsTo(User, {foreignKey: 'owner', targetKey: 'username'});
-Meme.belongsTo(Category, {foreignKey: 'category', targetKey: 'name'});
+Meme.belongsTo(Category, {foreignKey: 'category_name', targetKey: 'name'});
 
 module.exports = Meme;

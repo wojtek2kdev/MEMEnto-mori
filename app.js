@@ -15,6 +15,7 @@ const apiRoutes = require('./src/routes/api');
 const addMemeRoutes = require('./src/routes/addMeme');
 
 app.use(`/dist`, express.static(__dirname + "/dist"));
+app.use(`/static`, express.static(__dirname + "/static"));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

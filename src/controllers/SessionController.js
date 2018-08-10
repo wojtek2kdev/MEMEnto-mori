@@ -20,5 +20,6 @@ const logout = (req, res, next) => {
     res.redirect("/");
 };
 
+
 exports.logout = logout;
 exports.getUser = getUser;

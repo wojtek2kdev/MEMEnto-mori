@@ -11,3 +11,6 @@ const checkRecaptcha = (req, res, next) => {
     console.log(`SUCCESS!`);
     next();
 };
+
+exports.checkRecaptcha = checkRecaptcha;
+exports.recaptcha = recaptcha;
