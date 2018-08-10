@@ -1,5 +1,6 @@
 const PagesController = require('../controllers/PagesController');
 const RegisterController = require('../controllers/RegisterController');
+const CaptchaController = require('../controllers/CaptchaController');
 const errorHandler = require('../middlewares/errors');
 
 const express = require('express');
@@ -11,7 +12,7 @@ router.get('/',
 
 router.post('/', 
     RegisterController.recaptcha.middleware.verify,
-    RegisterController.checkRecaptcha,
+    CaptchaController.checkRecaptcha,
     errorHandler.catchAsync(RegisterController.addUser)
 );
 

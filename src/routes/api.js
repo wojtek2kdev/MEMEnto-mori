@@ -7,4 +7,6 @@ router.get('/user',
     SessionController.getUser
 );
 
+router.post('/add');
+
 module.exports = router;

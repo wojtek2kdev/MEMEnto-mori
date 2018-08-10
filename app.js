@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const fileUpload = require('express-fileupload');
 
 const sessionConfig = require('./src/config/session');
 
@@ -17,6 +18,7 @@ app.use(`/dist`, express.static(__dirname + "/dist"));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(fileUpload());
 
 app.use(session(sessionConfig));
 
