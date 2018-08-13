@@ -3,8 +3,13 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const schedule = require('node-schedule');
+const sequelize = require('./src/config/database');
 
 const sessionConfig = require('./src/config/session');
+
+//models
+const Meme = require('./src/models/meme');
 
 //routes
 const mainRoutes = require('./src/routes/index');
@@ -27,6 +32,18 @@ app.use(`/register`, registerRoutes);
 app.use(`/add`, addMemeRoutes);
 
 app.use(`/api`, apiRoutes);
+
+
+//job which every minute deletes meme which is older than 1 hour.
+schedule.scheduleJob({rule: '*/5 * * * * *'}, async () => 
+  await Meme.destroy({
+    where: {
+      created_at: {
+        lt: sequelize.literal("now() - '1 minute'::interval")
+      }
+    }
+  })
+);
 
 app.listen(8081, () => {
   console.log('Hello! MEMEnto-mori app listening on port 8081');

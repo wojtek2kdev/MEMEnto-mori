@@ -30,7 +30,7 @@ const authorize = async (login_details) => {
 
     if(user){
      if(await user.authenticate(login_details.password)){
-        return user.get({plain: true});
+        return user;
      }
     }
 

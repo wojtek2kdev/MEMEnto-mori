@@ -5,9 +5,10 @@ const express = require('express');
 const router = express.Router();
 
 const multer = require('multer');
-const upload = multer({dest: 'static/'});
+const upload = multer({dest: 'static/images/'});
 
 const checkSession = require('../middlewares/check-session');
+const errorHandler = require('../middlewares/errors');
 
 
 router.get('/user',
@@ -15,8 +16,8 @@ router.get('/user',
 );
 
 router.post('/add', 
-    AddMemeController.moveImage,
-    AddMemeController.addPathToDatabase
+    upload.single('meme'),
+    errorHandler.catchAsync(AddMemeController.addMemeToDatabase)
 );
 
 module.exports = router;
