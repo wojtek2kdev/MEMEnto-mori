@@ -16,8 +16,10 @@ router.get('/user',
 );
 
 router.post('/add', 
+    errorHandler.catchAsync(AddMemeController.checkIfMemeAlreadyExists),
     upload.single('meme'),
-    errorHandler.catchAsync(AddMemeController.addMemeToDatabase)
+    errorHandler.catchMemeError(AddMemeController.addMemeToDatabase),
+    errorHandler.catchMemeError(AddMemeController.addVoteForMeme)
 );
 
 module.exports = router;

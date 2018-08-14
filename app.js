@@ -11,6 +11,7 @@ const sessionConfig = require('./src/config/session');
 
 //models
 const Meme = require('./src/models/meme');
+const Vote = require('./src/models/vote');
 
 //routes
 const mainRoutes = require('./src/routes/index');
@@ -36,19 +37,25 @@ app.use(`/api`, apiRoutes);
 
 
 //job which every minute deletes meme which is older than 1 hour.
-schedule.scheduleJob({rule: '* */1 * * * *'}, async () => {
+schedule.scheduleJob({rule: '*/60 * * * * *'}, async () => {
 
-  const files = await Meme.findAll({
+  const memes = await Meme.findAll({
     where: sequelize.literal(`created_at < now() - interval '1 hour'`)
   });
 
-  for(let file of files){
+  for(let meme of memes){
 
-    fs.unlink(file.src, err => { if(err) throw err })
+    fs.unlink(meme.src, err => { if(err) throw err })
+
+    await Vote.destroy({
+      where: {
+        memeid: meme.id
+      }
+    });
 
     await Meme.destroy({
       where: {
-        src: file.src
+        src: meme.src
       }
     });
 

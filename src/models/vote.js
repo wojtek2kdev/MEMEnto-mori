@@ -6,14 +6,12 @@ const Meme = require('./meme');
 
 const Vote = database.define('vote', {
     good: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
-        defaultValue: 0
     },
     bad: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
-        defaultValue: 0
     },
     memeid: {
         type: Sequelize.INTEGER,

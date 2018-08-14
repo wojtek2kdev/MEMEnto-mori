@@ -1,5 +1,25 @@
 const Meme = require('../models/meme');
 const Category = require('../models/category');
+const Vote = require('../models/vote');
+
+
+const checkIfMemeAlreadyExists = async (req, res, next) => {
+
+  const meme = await Meme.findOne({
+    where: {
+      owner: req.session.user.username
+    }
+  });
+
+  if(meme){
+    const err = new Error("Wait until your meme die");
+    err.status = 400;
+    throw err;
+  }
+
+  next();
+
+};
 
 const addMemeToDatabase = async (req, res, next) => {
 
@@ -20,4 +40,5 @@ const addMemeToDatabase = async (req, res, next) => {
       
 };
 
+exports.checkIfMemeAlreadyExists = checkIfMemeAlreadyExists;
 exports.addMemeToDatabase = addMemeToDatabase;
