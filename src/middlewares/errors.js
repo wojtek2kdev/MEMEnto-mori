@@ -1,6 +1,13 @@
+const fs = require('fs');
+
 exports.catchAsync = (fn) => {
     return (req, res, next) => {
-        fn(req, res, next).catch(err => catchErrors(err, req, res, next));
+        fn(req, res, next).catch(err => {
+            if(req.file){
+                fs.unlink(req.file.path);
+            }
+            catchErrors(err, req, res, next)
+        });
     }
 };
 
