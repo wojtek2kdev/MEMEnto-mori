@@ -25,6 +25,11 @@ const Meme = database.define('meme', {
     category_name: {
         type: Sequelize.STRING(30),
         allowNull: false
+    },
+    created_at: {
+        type: 'TIMESTAMP',
+        allowNull: false,
+        defaultValue: Sequelize.literal('now()')
     }
 },{
     freezeTableName: true,
