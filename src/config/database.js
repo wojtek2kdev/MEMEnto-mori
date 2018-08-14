@@ -15,6 +15,8 @@ module.exports = new Sequelize('memento', 'tinyrick', 'P4$$word1984', {
       timestamps: false
     },
   
-    operatorsAliases: false
+    operatorsAliases: false,
+
+    timezone: "+02:00"
   
   });

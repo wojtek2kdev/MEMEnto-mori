@@ -3,13 +3,13 @@
         <div class="register-content">
             <h1 class="register-title">{{ title }}</h1>
             <form action="/register" method="post" @submit="checkConfirmation">
-                <h5 class='input-label'>Username</h5>
+                <label class='input-label'>Username</label>
                 <h4 class="input-pattern">(max. 20 signs)</h4>
                 <m-input class='register-input' type="text" name="username" required pattern="^.{1,20}$"></m-input>
-                <h5 class='input-label'>Password</h5>
+                <label class='input-label'>Password</label>
                 <h4 class="input-pattern">(min. 8 signs, min. 1 capital letter, min. 1 number)</h4>
                 <m-input class='register-input' type="password" name="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(.*[#$^+=!*()@%&])?.{8,}$"></m-input>
-                <h5 class="input-label">Confirm password</h5>
+                <label class="input-label">Confirm password</label>
                 <m-input class='register-input' type="password" name="password_confirmation" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(.*[#$^+=!*()@%&])?.{8,}$"></m-input>
                 <p id="message" class="register-message">{{ message }}</p>
                 <div class="g-recaptcha captcha" data-sitekey="6LdB9GYUAAAAAIMyhR_pTLU6j2AHVwzsHUcnfISu"></div>

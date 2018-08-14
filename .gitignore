@@ -1,6 +1,7 @@
 .DS_Store
 node_modules/
 dist/
+static/
 npm-debug.log
 yarn-error.log
 rest
@@ -8,6 +9,7 @@ rest
 
 src/config/recaptcha.js
 src/config/session.js
+cleanimg
 
 # Editor directories and files
 .idea

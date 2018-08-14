@@ -1,17 +1,20 @@
 const PagesController = require('../controllers/PagesController');
 const RegisterController = require('../controllers/RegisterController');
+const CaptchaController = require('../controllers/CaptchaController');
 const errorHandler = require('../middlewares/errors');
 
 const express = require('express');
 const router = express.Router();
 
+const checkSession = require('../middlewares/check-session');
+
 router.get('/', 
-    PagesController.register
+    checkSession.onInactiveSession(PagesController.register)
 );
 
 router.post('/', 
-    RegisterController.recaptcha.middleware.verify,
-    RegisterController.checkRecaptcha,
+    CaptchaController.recaptcha.middleware.verify,
+    CaptchaController.checkRecaptcha,
     errorHandler.catchAsync(RegisterController.addUser)
 );
 

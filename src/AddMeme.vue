@@ -1,12 +1,12 @@
 <template>
     <background>
         <navbar></navbar>
-        <login-form></login-form>
+        <add-meme-form></add-meme-form>
     </background>
 </template>
 <script>
 export default {
-    name: 'app',
+    name: 'add-meme',
     data(){
         return{}
     }

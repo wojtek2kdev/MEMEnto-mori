@@ -3,16 +3,25 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const schedule = require('node-schedule');
+const sequelize = require('./src/config/database');
+const fs = require('fs');
 
 const sessionConfig = require('./src/config/session');
 
+//models
+const Meme = require('./src/models/meme');
+const Vote = require('./src/models/vote');
+
 //routes
 const mainRoutes = require('./src/routes/index');
-const loginRoutes = require('./src/routes/login');
+const authRoutes = require('./src/routes/auth');
 const registerRoutes = require('./src/routes/register');
 const apiRoutes = require('./src/routes/api');
+const addMemeRoutes = require('./src/routes/addMeme');
 
 app.use(`/dist`, express.static(__dirname + "/dist"));
+app.use(`/static`, express.static(__dirname + "/static"));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,10 +29,39 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session(sessionConfig));
 
 app.use(`/`, mainRoutes);
-app.use(`/login`, loginRoutes);
+app.use(`/auth`, authRoutes);
 app.use(`/register`, registerRoutes);
+app.use(`/add`, addMemeRoutes);
 
 app.use(`/api`, apiRoutes);
+
+
+//job which every minute deletes meme which is older than 1 hour.
+schedule.scheduleJob({rule: '*/60 * * * * *'}, async () => {
+
+  const memes = await Meme.findAll({
+    where: sequelize.literal(`created_at < now() - interval '1 hour'`)
+  });
+
+  for(let meme of memes){
+
+    fs.unlink(meme.src, err => { if(err) throw err })
+
+    await Vote.destroy({
+      where: {
+        memeid: meme.id
+      }
+    });
+
+    await Meme.destroy({
+      where: {
+        src: meme.src
+      }
+    });
+
+  }
+
+});
 
 app.listen(8081, () => {
   console.log('Hello! MEMEnto-mori app listening on port 8081');

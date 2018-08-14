@@ -21,6 +21,9 @@ export default {
 <style lang="sass" scoped>
 
     .submit
+
+        padding: 0 !important;
+
         background: green;
         
         color: white;
