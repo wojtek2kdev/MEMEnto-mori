@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const schedule = require('node-schedule');
 const sequelize = require('./src/config/database');
+const fs = require('fs');
 
 const sessionConfig = require('./src/config/session');
 
@@ -36,9 +37,23 @@ app.use(`/api`, apiRoutes);
 
 //job which every minute deletes meme which is older than 1 hour.
 schedule.scheduleJob({rule: '* */1 * * * *'}, async () => {
-  await Meme.destroy({
+
+  const files = await Meme.findAll({
     where: sequelize.literal(`created_at < now() - interval '1 hour'`)
-  })
+  });
+
+  for(let file of files){
+
+    fs.unlink(file.src, err => { if(err) throw err })
+
+    await Meme.destroy({
+      where: {
+        src: file.src
+      }
+    });
+
+  }
+
 });
 
 app.listen(8081, () => {

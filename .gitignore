@@ -9,6 +9,7 @@ rest
 
 src/config/recaptcha.js
 src/config/session.js
+cleanimg
 
 # Editor directories and files
 .idea
