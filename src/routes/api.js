@@ -16,19 +16,22 @@ api.get('/user',
     SessionController.getUser
 );
 
+api.get('/memes', 
+    errorHandler.catchAsync(FetchMemeController.fetchMemesGeneral)
+);
+
 api.get('/memes/:site',
-    FetchMemeController.fetchMemesGeneral
+    errorHandler.catchAsync(FetchMemeController.fetchMemesGeneral)
 );
 
 api.get('/memes/:site/:category',
-    FetchMemeController.fetchMemesByCategory
+    errorHandler.catchAsync(FetchMemeController.fetchMemesByCategory)
 );
 
 api.post('/add', 
  //   errorHandler.catchAsync(AddMemeController.checkIfMemeAlreadyExists),
     upload.single('meme'),
     errorHandler.catchMemeError(AddMemeController.addMemeToDatabase),
-    errorHandler.catchMemeError(AddMemeController.addVoteForMeme)
 );
 
 module.exports = api;
