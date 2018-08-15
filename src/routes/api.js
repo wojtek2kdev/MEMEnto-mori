@@ -17,15 +17,19 @@ api.get('/user',
 );
 
 api.get('/memes', 
-    errorHandler.catchAsync(FetchMemeController.fetchMemesGeneral)
+    errorHandler.catchAsync(FetchMemeController.fetchMemes)
 );
 
 api.get('/memes/:site',
-    errorHandler.catchAsync(FetchMemeController.fetchMemesGeneral)
+    errorHandler.catchAsync(FetchMemeController.fetchMemes)
 );
 
-api.get('/memes/:site/:category',
-    errorHandler.catchAsync(FetchMemeController.fetchMemesByCategory)
+api.get('/memes/category/:category',
+    errorHandler.catchAsync(FetchMemeController.fetchMemes)
+);
+
+api.get('/memes/category/:category/:site',
+    errorHandler.catchAsync(FetchMemeController.fetchMemes)
 );
 
 api.post('/add', 
