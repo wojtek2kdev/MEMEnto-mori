@@ -29,7 +29,7 @@ api.get('/memes/:site/:category',
 );
 
 api.post('/add', 
- //   errorHandler.catchAsync(AddMemeController.checkIfMemeAlreadyExists),
+    errorHandler.catchAsync(AddMemeController.checkIfMemeAlreadyExists),
     upload.single('meme'),
     errorHandler.catchMemeError(AddMemeController.addMemeToDatabase),
 );
