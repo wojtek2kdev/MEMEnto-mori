@@ -2,13 +2,13 @@
     <div class="news is-dark">
         <header class="news-header">
             <h1 class="news-header--title">{{ title }}</h1>
-            <h2 class="link-label">Category: <a class="link">{{ category }}</a></h2>
+            <h2 class="link-label">Category: <a class="link" :href="`/category/${this.category}`">{{ category }}</a></h2>
         </header>
         <div class="news-meme">
             <img :src="src" alt="Image couldn't load" width="100%" height="100%">
         </div>
         <div class="news-vote">
-            <h1 class="news-vote--author link-label">Author: <a class="link">{{ author }}</a></h1>
+            <h1 class="news-vote--author link-label">Author: <a class="link" :href="`/profile/${this.author}`">{{ author }}</a></h1>
             <div class="news-vote--arrows">
                 <b-icon
                     icon="arrow-up-bold"

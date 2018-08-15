@@ -7,4 +7,16 @@ router.get('/',
     PagesController.home
 );
 
+router.get('/page/:site',
+    PagesController.home
+);
+
+router.get('/category/:category',
+    PagesController.home
+);
+
+router.get('/category/:category/:site',
+    PagesController.home
+);
+
 module.exports = router;

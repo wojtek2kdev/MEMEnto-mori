@@ -20,6 +20,7 @@ Vue.component('feed', Feed)
 Vue.component('news', News)
 
 const router = new VueRouter({
+  mode: 'history',
   routes: [
     { 
       path: '/page/:site', 
