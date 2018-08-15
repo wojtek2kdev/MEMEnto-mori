@@ -2,7 +2,7 @@
     <background>
       <navbar></navbar>
       <feed>
-        <news v-for="news of newses.src" :key="news" :src="news"></news>
+        <news v-for="news of newses" :key="news" :src="news.src"></news>
       </feed>
     </background>
 </template>
@@ -14,17 +14,16 @@ export default {
   name: 'app',
   data () {
     return {
-      newses: []
+      newses: ['/static/images/1b42d17ae2d57d99fadfc22690c7fb36']
     }
   },
-  created: function(){
-
-    const self = this;
-
-    axios.get('/api/memes/').then(result => {
-      self.newses = result;
-    })
-
+  created() {
+      axios({
+        method: 'get',
+        url: '/api/memes'
+      }).then(response => {
+        this.newses = response.data;
+      });
   }
 }
 
@@ -32,5 +31,5 @@ export default {
 
 <style lang="sass" scoped>  
   .light-dark
-    background: rgba(20,20,20,0.9);
+    background: rgba(20,20,20,0.9)
 </style>

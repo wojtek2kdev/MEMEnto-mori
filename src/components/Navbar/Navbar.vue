@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <div class="navbar-end">
+    <div class="navbar-end navbar-end__margin">
       <div class="navbar-item">
         <div class="field is-grouped">
           <p v-if="!isSessionActive()" class="control">
@@ -111,6 +111,11 @@ export default {
 </script>
 <style lang="sass" scoped>
   #navbar
-    position: absolute;
-    width: 100%;
+    position: fixed
+    width: 100%
+
+    z-index: 2
+
+  .navbar-end__margin 
+    margin-right: 10px
 </style>
