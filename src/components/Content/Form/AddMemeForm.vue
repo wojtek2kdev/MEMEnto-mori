@@ -10,8 +10,9 @@
                 <label class="input-label">Category</label>
                 <select required name="category" id="category" class="form-input">
                     <option disabled selected value> -- select an option -- </option>
-                    <option value="Games">Games</option>
-                    <option value="Black humor">Black humor</option>
+                    <option v-for="category of this.getCategories()" 
+                            :key="category" 
+                            :value="category.name">{{ category.name }}</option>
                 </select>
                 <label class="input-label">Meme</label>
                 <m-input required type="file" accept="image/*" class="form-input form-input--file" name="meme"></m-input>
@@ -29,6 +30,14 @@ export default {
             subtitle: "Earn as much likes as you can! Your meme will die after hour. Memento mori.",
             info: "You can only add one meme per day. Administrator isn't responsible for meme which you upload, If someone report your meme then this meme will be checked and may be deleted."
         }
+    },
+    methods: {
+        getCategories: function(){
+            return this.$store.state.categories;
+        }
+    },
+    created: function(){
+        this.$store.commit('fetchCategories');
     }
 }
 </script>
