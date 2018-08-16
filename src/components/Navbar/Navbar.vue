@@ -22,12 +22,7 @@
           Categories
         </a>
         <div class="navbar-dropdown is-boxed">
-          <a class="navbar-item" href="#">
-            Games
-          </a>
-          <a class="navbar-item" href="#">
-            Black humor
-          </a>
+          <a class="navbar-item" href="#"></a>
         </div>
       </div>
     </div>
@@ -87,13 +82,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-import cookie from 'js-cookie';
+import axios from 'axios';
 
 export default {
 
     name: 'navbar',
     data(){
-        return{}
+        return{
+          categories: [
+            {name: 'Category A'},
+            {name: 'Category B'}
+          ]
+        }
     },
     methods: {
         isSessionActive: function(){
@@ -101,10 +101,22 @@ export default {
         },
         getUsername: function(){
           return this.$store.state.user.username;
+        },
+        fetchCategories: function(){
+            axios({
+                method: 'get',
+                url: '/api/categories'
+            }).then(response => {
+                this.categories = response.data;
+            });
         }
     },
     created: function(){
+
       this.$store.commit('fetchUser');
+
+      this.fetchCategories();
+
     }
 }
 
