@@ -21,6 +21,14 @@ api.get('/categories',
     MemeInfoController.fetchCategories
 );
 
+api.get('/sites',
+    errorHandler.catchAsync(MemeInfoController.fetchSitesCount)
+);
+
+api.get('/sites/:category',
+    errorHandler.catchAsync(MemeInfoController.fetchSitesCount)
+);
+
 api.get('/memes', 
     errorHandler.catchAsync(FetchMemeController.fetchMemes)
 );

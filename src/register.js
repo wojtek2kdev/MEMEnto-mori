@@ -4,7 +4,7 @@ import 'buefy/lib/buefy.css'
 import { store } from './store/store';
 
 import Register from './Register.vue'
-import Navbar from './components/Navbar/Navbar.vue'
+import Navbar from './components/Navigation/Navbar.vue'
 import Background from './components/Background.vue'
 import RegisterForm from './components/Content/Form/RegisterForm.vue'
 import Input from './components/Element/Input.vue'

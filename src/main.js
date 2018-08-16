@@ -7,7 +7,7 @@ import { store } from './store/store'
 // my components
 import App from './App.vue'
 import Background from './components/Background.vue'
-import Navbar from './components/Navbar/Navbar.vue'
+import Navbar from './components/Navigation/Navbar.vue'
 import Feed from './components/Content/Feed.vue'
 import News from './components/Content/News.vue'
 
