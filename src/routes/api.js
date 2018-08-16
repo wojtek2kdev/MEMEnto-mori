@@ -21,14 +21,6 @@ api.get('/categories',
     MemeInfoController.fetchCategories
 );
 
-api.get('/sites',
-    errorHandler.catchAsync(MemeInfoController.fetchSitesCount)
-);
-
-api.get('/sites/:category',
-    errorHandler.catchAsync(MemeInfoController.fetchSitesCount)
-);
-
 api.get('/memes', 
     errorHandler.catchAsync(FetchMemeController.fetchMemes)
 );
@@ -43,6 +35,14 @@ api.get('/memes/category/:category',
 
 api.get('/memes/category/:category/:site',
     errorHandler.catchAsync(FetchMemeController.fetchMemes)
+);
+
+api.get('/count/memes',
+    errorHandler.catchAsync(MemeInfoController.fetchMemesCount)
+);
+
+api.get('/count/memes/:category',
+    errorHandler.catchAsync(MemeInfoController.fetchMemesCount)
 );
 
 api.post('/add', 

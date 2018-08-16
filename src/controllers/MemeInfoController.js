@@ -11,19 +11,19 @@ const fetchCategories = async (req, res, next) => {
 
 };
 
-const fetchSitesCount = async (req, res, next) => {
+const fetchMemesCount = async (req, res, next) => {
 
     const category = req.params.category;
 
-    const sites = await Meme.count({
+    const count = await Meme.count({
         where: category ? {
             category_name: category
         } : undefined
     });
 
-    res.json({sites: Math.ceil(sites/10)});
+    res.json({memes: count});
 
 };
 
-exports.fetchSitesCount = fetchSitesCount;
+exports.fetchMemesCount = fetchMemesCount;
 exports.fetchCategories = fetchCategories;
