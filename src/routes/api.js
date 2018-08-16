@@ -1,6 +1,7 @@
 const SessionController = require('../controllers/SessionController');
 const AddMemeController = require('../controllers/AddMemeController');
 const FetchMemeController = require('../controllers/FetchMemeController');
+const MemeInfoController = require('../controllers/MemeInfoController');
 
 const express = require('express');
 const api = express.Router();
@@ -14,6 +15,10 @@ const errorHandler = require('../middlewares/errors');
 
 api.get('/user',
     SessionController.getUser
+);
+
+api.get('/categories',
+    MemeInfoController.fetchCategories
 );
 
 api.get('/memes', 
