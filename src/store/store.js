@@ -6,13 +6,22 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        user: {}
+        user: {},
+        categories: []
     },
     mutations: {
         fetchUser(state) {
                 axios.get("/api/user").then(user => {
                     state.user = user.data;
                 });
+        },
+        fetchCategories(state){
+            axios({
+                method: 'get',
+                url: '/api/categories'
+            }).then(response => {
+                state.categories = response.data;
+            });
         }
     }
 });

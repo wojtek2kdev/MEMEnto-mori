@@ -22,7 +22,7 @@
           Categories
         </a>
         <div class="navbar-dropdown is-boxed">
-          <a v-for="category of categories" 
+          <a v-for="category of this.getCategories()" 
             :key="category" 
             class="navbar-item" 
             :href="`/category/${category.name}`">{{ category.name }}</a>
@@ -91,9 +91,7 @@ export default {
 
     name: 'navbar',
     data(){
-        return{
-          categories: []
-        }
+        return{}
     },
     methods: {
         isSessionActive: function(){
@@ -102,20 +100,15 @@ export default {
         getUsername: function(){
           return this.$store.state.user.username;
         },
-        fetchCategories: function(){
-            axios({
-                method: 'get',
-                url: '/api/categories'
-            }).then(response => {
-                this.categories = response.data;
-            });
+        getCategories: function(){
+          return this.$store.state.categories;
         }
     },
     created: function(){
 
       this.$store.commit('fetchUser');
 
-      this.fetchCategories();
+      this.$store.commit('fetchCategories');
 
     }
 }
