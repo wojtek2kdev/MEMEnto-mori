@@ -22,7 +22,10 @@
           Categories
         </a>
         <div class="navbar-dropdown is-boxed">
-          <a class="navbar-item" href="#"></a>
+          <a v-for="category of categories" 
+            :key="category" 
+            class="navbar-item" 
+            :href="`/category/${category.name}`">{{ category.name }}</a>
         </div>
       </div>
     </div>
@@ -89,10 +92,7 @@ export default {
     name: 'navbar',
     data(){
         return{
-          categories: [
-            {name: 'Category A'},
-            {name: 'Category B'}
-          ]
+          categories: []
         }
     },
     methods: {
