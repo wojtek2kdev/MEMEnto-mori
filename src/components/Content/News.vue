@@ -10,16 +10,10 @@
         <div class="news-vote">
             <h1 class="news-vote--author link-label">Author: <a class="link" :href="`/profile/${this.author}`">{{ author }}</a></h1>
             <div class="news-vote--arrows">
-                <b-icon
-                    icon="arrow-up-bold"
-                    size="is-medium"
-                    type="is-success">
-                </b-icon>
-                <b-icon
-                    icon="arrow-down-bold"
-                    size="is-medium"
-                    type="is-danger">
-                </b-icon>
+                <a v-if="!like" @click="likeMeme" class="vote"><i class="far fa-thumbs-up"></i></a>
+                    <a v-if="like" @click="likeMeme" class="vote vote-like"><i class="far fa-thumbs-up"></i></a>
+                <a v-if="!dislike" @click="dislikeMeme" class="vote"><i class="far fa-thumbs-down"></i></a>
+                    <a v-if="dislike" @click="dislikeMeme" class="vote vote-dislike"><i class="far fa-thumbs-down"></i></a>
             </div>
         </div>
     </div>
@@ -29,7 +23,20 @@ export default {
     name: "news",
     props: ['id', 'src', 'title', 'category', 'author'],
     data(){
-        return{}
+        return{
+            like: false,
+            dislike: false
+        }
+    },
+    methods: {
+        likeMeme: function () {
+            if(this.dislike) this.dislike = false;
+            this.like = this.like ? false : true;
+        },
+        dislikeMeme: function(){
+            if(this.like) this.like = false;
+            this.dislike = this.dislike ? false : true;
+        }
     }
 }
 </script>
@@ -86,5 +93,20 @@ export default {
 
     .news-meme
         flex: 1 1
+
+    .vote
+
+        font-size: 2rem
+        color: lightgrey
+
+        margin: 0px 30px 5px 0px
+
+        user-select: none !important
+
+    .vote-like
+        color: green
+
+    .vote-dislike
+        color: red
 
 </style>

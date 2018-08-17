@@ -31,7 +31,13 @@ export default {
   props: ['id', 'category', 'site'],
   data () {
     return {
-      newses: [],
+      newses: [{
+        id: 70,
+        src: "/static/images/0a90f6e3fb71a1088ffc9e5d62bba024",
+        title: "Some title for example",
+        owner: "Test_user",
+        category_name: "Games"
+        }],
       total: 0,
       current: 1,
       perPage: 10,
