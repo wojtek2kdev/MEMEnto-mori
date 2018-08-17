@@ -15,7 +15,8 @@
             :size="size"
             :simple="isSimple"
             :rounded="isRounded"
-            :per-page="perPage">
+            :per-page="perPage"
+            @change="changePage">
         </b-pagination>
       </feed>
     </background>
@@ -29,7 +30,7 @@ export default {
   props: ['category', 'site'],
   data () {
     return {
-      newses: [{src: '/static/images/1b42d17ae2d57d99fadfc22690c7fb36'}],
+      newses: [],
       total: 0,
       current: 1,
       perPage: 10,
@@ -40,6 +41,9 @@ export default {
     }
   },
   created() {
+
+      const params = this.$route.params;
+
       axios({
         method: 'get',
         url: this.getUrlForFetchMemes()
@@ -47,13 +51,15 @@ export default {
         this.newses = response.data;
       });
 
-      const category = this.$route.params.category;
+      const category = params.category;
+      let site = parseInt(params.site);
       const self = this;
 
       this.$store.dispatch('fetchMemesCount', {
         category: category
       }).then(function() {
         self.total = self.$store.state.count;
+        self.current = site ? site+1 : 1;
       });
 
   },
@@ -76,6 +82,18 @@ export default {
 
           return url;
 
+      },
+      changePage: function(pageNumber) {
+          pageNumber--;
+          const params = this.$route.params;
+          let url = '/';
+          if(params.category){
+            url = pageNumber ? `/category/${params.category}/${pageNumber}` 
+            : `/category/${params.category}`;
+          }else if(pageNumber){
+            url = `/page/${pageNumber}`;
+          }
+          window.location.href = url;
       }
   }
 }

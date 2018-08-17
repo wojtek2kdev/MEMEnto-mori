@@ -1,6 +1,21 @@
 const sequelize = require('../config/database');
 const Meme = require('../models/meme');
 
+
+const fetchMeme = async (req, res, next) => {
+
+    const meme = await Meme.findOne({
+        attributes: ['id', 'src', 'title', 'owner', 'category_name'],
+        where: {
+            id: req.params.id
+        }
+    });
+
+    res.send(meme);
+
+};
+
+
 const fetchMemes = async (req, res, next) => {
     
     const offset = getOffset(req);
