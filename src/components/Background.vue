@@ -17,7 +17,9 @@ export default {
     background-size: cover
     background-position: top center
     background-attachment: fixed
-    position: absolute;
+    position: fixed
+    
+    overflow-y: auto
 
     width: 100%
     height: 100%

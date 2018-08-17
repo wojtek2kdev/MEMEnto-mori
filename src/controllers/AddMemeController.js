@@ -23,8 +23,14 @@ const checkIfMemeAlreadyExists = async (req, res, next) => {
 
 const addMemeToDatabase = async (req, res, next) => {
 
+      if(!req.session.user){
+        const err = new Error("You must be logged in!");
+        err.status = 401;
+        throw err;
+      }
+
       const meme = await Meme.create({
-        src: req.file.path,
+        src: `/${req.file.path}`,
         title: req.body.title,
         owner: req.session.user.username,
         category_name: req.body.category

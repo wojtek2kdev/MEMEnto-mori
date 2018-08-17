@@ -22,17 +22,15 @@
           Categories
         </a>
         <div class="navbar-dropdown is-boxed">
-          <a class="navbar-item" href="#">
-            Games
-          </a>
-          <a class="navbar-item" href="#">
-            Black humor
-          </a>
+          <a v-for="category of this.getCategories()" 
+            :key="category" 
+            class="navbar-item" 
+            :href="`/category/${category.name}`">{{ category.name }}</a>
         </div>
       </div>
     </div>
 
-    <div class="navbar-end">
+    <div class="navbar-end navbar-end__margin">
       <div class="navbar-item">
         <div class="field is-grouped">
           <p v-if="!isSessionActive()" class="control">
@@ -87,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-import cookie from 'js-cookie';
+import axios from 'axios';
 
 export default {
 
@@ -101,16 +99,28 @@ export default {
         },
         getUsername: function(){
           return this.$store.state.user.username;
+        },
+        getCategories: function(){
+          return this.$store.state.categories;
         }
     },
     created: function(){
+
       this.$store.commit('fetchUser');
+
+      this.$store.commit('fetchCategories');
+
     }
 }
 
 </script>
 <style lang="sass" scoped>
   #navbar
-    position: absolute;
-    width: 100%;
+    position: fixed
+    width: 100%
+
+    z-index: 2
+
+  .navbar-end__margin 
+    margin-right: 10px
 </style>

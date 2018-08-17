@@ -19,6 +19,7 @@ const authRoutes = require('./src/routes/auth');
 const registerRoutes = require('./src/routes/register');
 const apiRoutes = require('./src/routes/api');
 const addMemeRoutes = require('./src/routes/addMeme');
+const memeApiRoutes = require('./src/routes/memeApi');
 
 app.use(`/dist`, express.static(__dirname + "/dist"));
 app.use(`/static`, express.static(__dirname + "/static"));
@@ -34,34 +35,11 @@ app.use(`/register`, registerRoutes);
 app.use(`/add`, addMemeRoutes);
 
 app.use(`/api`, apiRoutes);
+app.use(`/api`, memeApiRoutes);
 
 
 //job which every minute deletes meme which is older than 1 hour.
-schedule.scheduleJob({rule: '*/60 * * * * *'}, async () => {
 
-  const memes = await Meme.findAll({
-    where: sequelize.literal(`created_at < now() - interval '1 hour'`)
-  });
-
-  for(let meme of memes){
-
-    fs.unlink(meme.src, err => { if(err) throw err })
-
-    await Vote.destroy({
-      where: {
-        memeid: meme.id
-      }
-    });
-
-    await Meme.destroy({
-      where: {
-        src: meme.src
-      }
-    });
-
-  }
-
-});
 
 app.listen(8081, () => {
   console.log('Hello! MEMEnto-mori app listening on port 8081');

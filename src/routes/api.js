@@ -1,25 +1,20 @@
 const SessionController = require('../controllers/SessionController');
-const AddMemeController = require('../controllers/AddMemeController');
+const MemeInfoController = require('../controllers/MemeInfoController');
 
 const express = require('express');
-const router = express.Router();
-
-const multer = require('multer');
-const upload = multer({dest: 'static/images/'});
+const api = express.Router();
 
 const checkSession = require('../middlewares/check-session');
 const errorHandler = require('../middlewares/errors');
 
 
-router.get('/user',
+api.get('/user',
     SessionController.getUser
 );
 
-router.post('/add', 
-    errorHandler.catchAsync(AddMemeController.checkIfMemeAlreadyExists),
-    upload.single('meme'),
-    errorHandler.catchMemeError(AddMemeController.addMemeToDatabase),
-    errorHandler.catchMemeError(AddMemeController.addVoteForMeme)
+api.get('/categories',
+    MemeInfoController.fetchCategories
 );
 
-module.exports = router;
+
+module.exports = api;

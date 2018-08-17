@@ -6,7 +6,7 @@ import { store } from './store/store'
 
 import Login from './Login.vue'
 import Background from './components/Background.vue'
-import Navbar from './components/Navbar/Navbar.vue'
+import Navbar from './components/Navigation/Navbar.vue'
 import LoginForm from './components/Content/Form/LoginForm.vue'
 import Input from './components/Element/Input.vue'
 

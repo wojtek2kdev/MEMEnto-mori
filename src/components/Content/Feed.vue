@@ -9,13 +9,7 @@
 export default {
     name: "feed",
     data() {
-       return{ 
-           newses: [
-               "link1",
-               "link2",
-               "link3"
-           ]
-       }
+       return{}
     }    
 }
 </script>
@@ -23,8 +17,6 @@ export default {
     #feed-container
         width: 100%
         height: 100%
-
-        overflow-y: auto
 
         position: relative
 

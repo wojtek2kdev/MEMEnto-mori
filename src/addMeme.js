@@ -7,7 +7,7 @@ import { store } from './store/store'
 
 import AddMeme from './AddMeme.vue'
 import Background from './components/Background.vue'
-import Navbar from './components/Navbar/Navbar.vue'
+import Navbar from './components/Navigation/Navbar.vue'
 import AddMemeForm from './components/Content/Form/AddMemeForm.vue'
 import Input from './components/Element/Input.vue'
 
