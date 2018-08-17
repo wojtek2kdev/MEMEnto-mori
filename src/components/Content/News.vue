@@ -12,8 +12,10 @@
             <div class="news-vote--arrows">
                 <a v-if="!like" @click="likeMeme" class="vote"><i class="far fa-thumbs-up"></i></a>
                     <a v-if="like" @click="likeMeme" class="vote vote-like"><i class="far fa-thumbs-up"></i></a>
+                <span class="vote-count vote-count--likes">{{ likesCount }}</span>
                 <a v-if="!dislike" @click="dislikeMeme" class="vote"><i class="far fa-thumbs-down"></i></a>
                     <a v-if="dislike" @click="dislikeMeme" class="vote vote-dislike"><i class="far fa-thumbs-down"></i></a>
+                <span class="vote-count vote-count--dislikes">{{ dislikesCount }}</span>
             </div>
         </div>
     </div>
@@ -25,17 +27,29 @@ export default {
     data(){
         return{
             like: false,
-            dislike: false
+            dislike: false,
+            likesCount: 0,
+            dislikesCount: 0
         }
     },
     methods: {
         likeMeme: function () {
-            if(this.dislike) this.dislike = false;
+            if(this.dislike){
+                 this.dislike = false;
+                 this.dislikesCount--;
+            }
+            
             this.like = this.like ? false : true;
+            this.likesCount = this.like ? this.likesCount+1 : this.likesCount-1;
+        
         },
         dislikeMeme: function(){
-            if(this.like) this.like = false;
+            if(this.like) {
+                this.like = false;
+                this.likesCount--;
+            }
             this.dislike = this.dislike ? false : true;
+            this.dislikesCount = this.dislike ? this.dislikesCount+1 : this.dislikesCount-1;
         }
     }
 }
@@ -99,7 +113,7 @@ export default {
         font-size: 2rem
         color: lightgrey
 
-        margin: 0px 30px 5px 0px
+        margin: 0px 5px 5px 0px
 
         user-select: none !important
 
@@ -107,6 +121,17 @@ export default {
         color: green
 
     .vote-dislike
+        color: red
+
+    .vote-count
+        font-size: 1.5rem
+
+        margin-right: 5px
+
+    .vote-count--likes
+        color: green
+
+    .vote-count--dislikes
         color: red
 
 </style>
