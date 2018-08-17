@@ -1,7 +1,7 @@
 <template>
     <div class="news is-dark">
         <header class="news-header">
-            <h1 class="news-header--title">{{ title }}</h1>
+            <h1 class="news-header--title"><a class="title--link" :href="`/meme/${this.id}`">{{ title }}</a></h1>
             <h2 class="link-label">Category: <a class="link" :href="`/category/${this.category}`">{{ category }}</a></h2>
         </header>
         <div class="news-meme">
@@ -27,7 +27,7 @@
 <script>
 export default {
     name: "news",
-    props: ['src', 'title', 'category', 'author'],
+    props: ['id', 'src', 'title', 'category', 'author'],
     data(){
         return{}
     }
@@ -71,6 +71,11 @@ export default {
         color: grey
         &:hover
             color: white
+
+    .title--link
+        color: white
+        &:hover
+            color: lightgrey
 
     .news-vote
         display: flex

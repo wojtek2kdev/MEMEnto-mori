@@ -24,19 +24,16 @@ const router = new VueRouter({
   routes: [
     { 
       path: '/page/:site', 
-      name: 'page',
       component: App,
       props: true
     },
     {
       path: '/category/:category',
-      name: 'category',
       component: App,
       props: true
     },
     {
       path: '/category/:category/:site',
-      name: 'category.page',
       component: App,
       props: true
     },

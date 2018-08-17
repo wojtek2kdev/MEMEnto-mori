@@ -19,6 +19,7 @@ const authRoutes = require('./src/routes/auth');
 const registerRoutes = require('./src/routes/register');
 const apiRoutes = require('./src/routes/api');
 const addMemeRoutes = require('./src/routes/addMeme');
+const memeApiRoutes = require('./src/routes/memeApi');
 
 app.use(`/dist`, express.static(__dirname + "/dist"));
 app.use(`/static`, express.static(__dirname + "/static"));
@@ -34,6 +35,7 @@ app.use(`/register`, registerRoutes);
 app.use(`/add`, addMemeRoutes);
 
 app.use(`/api`, apiRoutes);
+app.use(`/api`, memeApiRoutes);
 
 
 //job which every minute deletes meme which is older than 1 hour.

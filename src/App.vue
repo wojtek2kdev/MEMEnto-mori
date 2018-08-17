@@ -4,6 +4,7 @@
       <feed>
         <news v-for="news of newses" 
               :key="news" 
+              :id="news.id"
               :src="news.src"
               :title="news.title"
               :category="news.category_name"
@@ -27,7 +28,7 @@ import axios from 'axios';
 
 export default {
   name: 'app',
-  props: ['category', 'site'],
+  props: ['id', 'category', 'site'],
   data () {
     return {
       newses: [],
@@ -48,39 +49,43 @@ export default {
         method: 'get',
         url: this.getUrlForFetchMemes()
       }).then(response => {
-        this.newses = response.data;
+        this.newses = Array.isArray(response.data) ? response.data : [response.data];
       });
 
       const category = params.category;
       let site = parseInt(params.site);
       const self = this;
 
-      this.$store.dispatch('fetchMemesCount', {
-        category: category
-      }).then(function() {
-        self.total = self.$store.state.count;
-        self.current = site ? site+1 : 1;
-      });
+      if(!params.id){
+        this.$store.dispatch('fetchMemesCount', {
+          category: category
+        }).then(function() {
+          self.total = self.$store.state.count;
+          self.current = site ? site+1 : 1;
+        });
+      }
 
   },
   methods: {
       getUrlForFetchMemes: function() {
-          const params = this.$route.params;
-          const route = '/api/memes';
 
-          let url = route;
+          const params = this.$route.params;
+
+          console.log("PARAMS: ", params);
 
           if(params.site){
             if(params.category){
-              url =`${route}/category/${params.category}/${params.site}`;
+              return `/api/memes/category/${params.category}/${params.site}`;
             }else{
-              url = `${route}/${params.site}`
+              return `/api/memes/${params.site}`
             }
           }else if(params.category){
-            url = `${route}/category/${params.category}`;
+            return `/api/memes/category/${params.category}`;
+          }else if(params.id){
+            return `/api/meme/${params.id}`
+          }else{
+            return `/api/memes`
           }
-
-          return url;
 
       },
       changePage: function(pageNumber) {

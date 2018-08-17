@@ -39,3 +39,4 @@ const getOffset = req => req.params.site > 0 ? req.params.site * 10 : 0;
 
 
 exports.fetchMemes = fetchMemes;
+exports.fetchMeme = fetchMeme;

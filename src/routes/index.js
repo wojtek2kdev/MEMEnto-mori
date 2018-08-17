@@ -7,6 +7,10 @@ router.get('/',
     PagesController.home
 );
 
+router.get('/meme/:id', 
+    PagesController.home
+);
+
 router.get('/page/:site',
     PagesController.home
 );
