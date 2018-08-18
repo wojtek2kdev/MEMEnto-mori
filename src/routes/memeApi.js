@@ -42,9 +42,7 @@ api.get('/meme/:id',
 );
 
 api.post('/add', 
-    checkSession.onActiveSession((req, res, next) => {
-        next();
-    }),
+    checkSession.onActiveSession((req, res, next) => next()),
     upload.single('meme'),
     errorHandler.catchMemeError(AddMemeController.addMemeToDatabase),
 );

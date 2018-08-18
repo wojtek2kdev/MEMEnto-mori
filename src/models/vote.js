@@ -6,7 +6,8 @@ const Meme = require('./meme');
 
 const Vote = database.define('vote', {
     which: {
-        type: Sequelize.ENUM('like', 'dislike')
+        type: Sequelize.ENUM,
+        values: ['like','dislike']
     },
     memeid: {
         type: Sequelize.INTEGER,
