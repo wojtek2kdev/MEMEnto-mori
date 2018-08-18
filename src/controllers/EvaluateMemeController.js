@@ -40,3 +40,8 @@ const updateLikeVotes = async (req, res, next) => {
 const updateDislikeVotes = async (req, res, next) => {
 
 };
+
+exports.fetchMemeVotes = fetchMemeVotes;
+exports.fetchUserVote = fetchUserVote;
+exports.updateLikeVotes = updateLikeVotes;
+exports.updateDislikeVotes = updateDislikeVotes;

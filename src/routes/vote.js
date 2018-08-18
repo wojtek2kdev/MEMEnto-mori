@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/whose/:username/:memeid');
+const EvaluateMemeController = require('../controllers/EvaluateMemeController');
 
-router.get('/count/:memeid');
+router.get('/whose/:username/:memeid', EvaluateMemeController.fetchUserVote);
+
+router.get('/count/:memeid', EvaluateMemeController.fetchMemeVotes);
 
 router.put('/:memeid/like');
 
