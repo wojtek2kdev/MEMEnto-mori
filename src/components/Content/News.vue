@@ -21,6 +21,8 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
     name: "news",
     props: ['id', 'src', 'title', 'category', 'author'],
@@ -31,6 +33,10 @@ export default {
             likesCount: 0,
             dislikesCount: 0
         }
+    },
+    created: function() {
+        this.fetchVotes();
+        this.fetchUserVote();
     },
     methods: {
         likeMeme: function () {
@@ -50,6 +56,28 @@ export default {
             }
             this.dislike = this.dislike ? false : true;
             this.dislikesCount = this.dislike ? this.dislikesCount+1 : this.dislikesCount-1;
+        },
+        fetchVotes: function() {
+            axios.get(`/api/vote/count/${this.id}`)
+            .then(votes => {
+                this.likesCount = votes.data.likes;
+                this.dislikesCount = votes.data.dislikes;
+            });
+        },
+        fetchUserVote: function() {
+            const user = this.$store.state.user;
+            
+            if(user.username){            
+                axios.get(`/api/vote/my/${this.id}`)
+                .then(userVote => {
+                    console.log("data:", userVote.data);
+                    if(userVote.data.which == 'like'){
+                        this.like = true;
+                    }else if(userVote.data.which == 'dislike'){
+                        this.dislike = true;
+                    }
+                });
+            }
         }
     }
 }

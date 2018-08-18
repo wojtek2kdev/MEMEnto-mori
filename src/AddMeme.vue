@@ -9,6 +9,9 @@ export default {
     name: 'add-meme',
     data(){
         return{}
+    },
+    created: function(){
+        this.$store.commit('fetchUser');
     }
 }
 </script>

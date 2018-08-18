@@ -106,8 +106,6 @@ export default {
     },
     created: function(){
 
-      this.$store.commit('fetchUser');
-
       this.$store.commit('fetchCategories');
 
     }

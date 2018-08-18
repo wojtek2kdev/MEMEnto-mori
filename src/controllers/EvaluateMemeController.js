@@ -23,11 +23,15 @@ const fetchMemeVotes = async (req, res, next) => {
 };
 
 const fetchUserVote = async (req, res, next) => {
+
+    const username = req.session.user.username;
+    const memeid = req.params.memeid;
+
     const vote = await Vote.findOne({
         attributes: ['which'],
         where: {
-            username: req.params.username,
-            memeid: req.params.memeid
+            username: username,
+            memeid: memeid
         }
     });
     res.send(vote);
@@ -36,7 +40,7 @@ const fetchUserVote = async (req, res, next) => {
 const updateVote = async (req, res, next) => {
 
     const memeid = req.params.memeid;
-    const username = req.session.username;
+    const username = req.session.user.username;
     const which = req.params.which;
 
     const vote = await Vote.findOne({

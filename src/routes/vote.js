@@ -6,9 +6,13 @@ const EvaluateMemeController = require('../controllers/EvaluateMemeController');
 const checkSession = require('../middlewares/check-session');
 const errorHandler = require('../middlewares/errors');
 
-router.get('/whose/:username/:memeid', EvaluateMemeController.fetchUserVote);
+router.get('/my/:memeid', 
+    errorHandler.catchAsync(EvaluateMemeController.fetchUserVote)
+);
 
-router.get('/count/:memeid', EvaluateMemeController.fetchMemeVotes);
+router.get('/count/:memeid', 
+    errorHandler.catchAsync(EvaluateMemeController.fetchMemeVotes)
+);
 
 router.put('/:which/:memeid', 
     checkSession.onActiveSession((req, res, next) => next()),

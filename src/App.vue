@@ -48,36 +48,15 @@ export default {
     }
   },
   created() {
-
-      const params = this.$route.params;
-
-      axios({
-        method: 'get',
-        url: this.getUrlForFetchMemes()
-      }).then(response => {
-        this.newses = Array.isArray(response.data) ? response.data : [response.data];
-      });
-
-      const category = params.category;
-      let site = parseInt(params.site);
-      const self = this;
-
-      if(!params.id){
-        this.$store.dispatch('fetchMemesCount', {
-          category: category
-        }).then(function() {
-          self.total = self.$store.state.count;
-          self.current = site ? site+1 : 1;
-        });
-      }
+      this.$store.commit('fetchUser');
+      this.fetchMemes();
+      this.fetchMemesCount();
 
   },
   methods: {
       getUrlForFetchMemes: function() {
 
           const params = this.$route.params;
-
-          console.log("PARAMS: ", params);
 
           if(params.site){
             if(params.category){
@@ -105,6 +84,30 @@ export default {
             url = `/page/${pageNumber}`;
           }
           window.location.href = url;
+      },
+      fetchMemesCount: function(){
+
+        const params = this.$route.params;
+        const category = params.category;
+        let site = parseInt(params.site);
+        const self = this;
+
+        if(!params.id){
+          this.$store.dispatch('fetchMemesCount', {
+            category: category
+          }).then(function() {
+            self.total = self.$store.state.count;
+            self.current = site ? site+1 : 1;
+          });
+        }
+      },
+      fetchMemes: function(){
+          axios({
+             method: 'get',
+             url: this.getUrlForFetchMemes()
+          }).then(response => {
+            this.newses = Array.isArray(response.data) ? response.data : [response.data];
+          });
       }
   }
 }
