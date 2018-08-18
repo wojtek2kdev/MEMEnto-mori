@@ -10,6 +10,7 @@ const multer = require('multer');
 const upload = multer({dest: 'static/images/'});
 
 const errorHandler = require('../middlewares/errors');
+const checkSession = require('../middlewares/check-session');
 
 
 api.get('/memes', 
@@ -41,6 +42,9 @@ api.get('/meme/:id',
 );
 
 api.post('/add', 
+    checkSession.onActiveSession((req, res, next) => {
+        next();
+    }),
     upload.single('meme'),
     errorHandler.catchMemeError(AddMemeController.addMemeToDatabase),
 );
