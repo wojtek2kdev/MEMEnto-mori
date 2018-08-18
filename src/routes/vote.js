@@ -1,5 +1,3 @@
-const Vote = require('../models/vote');
-
 const express = require('express');
 const router = express.Router();
 
