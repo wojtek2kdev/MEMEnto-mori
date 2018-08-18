@@ -10,11 +10,11 @@
         <div class="news-vote">
             <h1 class="news-vote--author link-label">Author: <a class="link" :href="`/profile/${this.author}`">{{ author }}</a></h1>
             <div class="news-vote--arrows">
-                <a v-if="!like" @click="likeMeme" class="vote"><i class="far fa-thumbs-up"></i></a>
-                    <a v-if="like" @click="likeMeme" class="vote vote-like"><i class="far fa-thumbs-up"></i></a>
+                <a v-if="!like" @click.prevent="likeMeme" class="vote"><i class="far fa-thumbs-up"></i></a>
+                    <a v-if="like" @click.prevent="likeMeme" class="vote vote-like"><i class="far fa-thumbs-up"></i></a>
                 <span class="vote-count vote-count--likes">{{ likesCount }}</span>
-                <a v-if="!dislike" @click="dislikeMeme" class="vote"><i class="far fa-thumbs-down"></i></a>
-                    <a v-if="dislike" @click="dislikeMeme" class="vote vote-dislike"><i class="far fa-thumbs-down"></i></a>
+                <a v-if="!dislike" @click.prevent="dislikeMeme" class="vote"><i class="far fa-thumbs-down"></i></a>
+                    <a v-if="dislike" @click.prevent="dislikeMeme" class="vote vote-dislike"><i class="far fa-thumbs-down"></i></a>
                 <span class="vote-count vote-count--dislikes">{{ dislikesCount }}</span>
             </div>
         </div>
@@ -31,7 +31,7 @@ export default {
             like: false,
             dislike: false,
             likesCount: 0,
-            dislikesCount: 0
+            dislikesCount: 0,
         }
     },
     created: function() {
@@ -40,22 +40,52 @@ export default {
     },
     methods: {
         likeMeme: function () {
-            if(this.dislike){
-                 this.dislike = false;
-                 this.dislikesCount--;
-            }
             
-            this.like = this.like ? false : true;
-            this.likesCount = this.like ? this.likesCount+1 : this.likesCount-1;
-        
+            const self = this;
+            
+            this.evaluateMeme('like').then(() => {
+                if(self.dislike){
+                    self.dislike = false;
+                    self.dislikesCount--;
+                }
+                
+                self.like = self.like ? false : true;
+                self.likesCount = self.like ? self.likesCount+1 : self.likesCount-1; 
+            })
+            .catch(redirect => redirect());
         },
         dislikeMeme: function(){
-            if(this.like) {
-                this.like = false;
-                this.likesCount--;
-            }
-            this.dislike = this.dislike ? false : true;
-            this.dislikesCount = this.dislike ? this.dislikesCount+1 : this.dislikesCount-1;
+
+            const self = this;
+
+            this.evaluateMeme('dislike').then(() => {
+                if(self.like) {
+                    self.like = false;
+                    self.likesCount--;
+                }
+                self.dislike = self.dislike ? false : true;
+                self.dislikesCount = self.dislike ? self.dislikesCount+1 : self.dislikesCount-1;
+            })
+            .catch(redirect => redirect());
+        },
+        evaluateMeme: function(vote) {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'put',
+                    url: '/api/vote',
+                    data: {
+                        which: vote,
+                        memeid: this.id
+                    }
+                }).then(response => {
+                    resolve();
+                }).catch(error => {
+                    reject(() => {
+                        window.location.href = '/auth/login';
+                    });
+                });
+                
+            });
         },
         fetchVotes: function() {
             axios.get(`/api/vote/count/${this.id}`)

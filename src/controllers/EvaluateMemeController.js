@@ -39,20 +39,23 @@ const fetchUserVote = async (req, res, next) => {
 
 const updateVote = async (req, res, next) => {
 
-    const memeid = req.params.memeid;
+    console.log(req.body);
+
+    const memeid = req.body.memeid;
     const username = req.session.user.username;
-    const which = req.params.which;
+    const which = req.body.which;
 
     const vote = await Vote.findOne({
         where: {
-            memeid: req.params.memeid,
+            memeid: memeid,
             username: username
         }
     });
 
     if(vote){
         await Vote.update({
-            which: which,
+            which: which
+        },{
             where: {
                 memeid: memeid,
                 username: username

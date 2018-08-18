@@ -14,7 +14,7 @@ router.get('/count/:memeid',
     errorHandler.catchAsync(EvaluateMemeController.fetchMemeVotes)
 );
 
-router.put('/:which/:memeid', 
+router.put('/', 
     checkSession.onActiveSession((req, res, next) => next()),
     errorHandler.catchAsync(EvaluateMemeController.updateVote)
 );
