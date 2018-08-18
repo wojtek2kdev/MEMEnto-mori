@@ -10,26 +10,105 @@
         <div class="news-vote">
             <h1 class="news-vote--author link-label">Author: <a class="link" :href="`/profile/${this.author}`">{{ author }}</a></h1>
             <div class="news-vote--arrows">
-                <b-icon
-                    icon="arrow-up-bold"
-                    size="is-medium"
-                    type="is-success">
-                </b-icon>
-                <b-icon
-                    icon="arrow-down-bold"
-                    size="is-medium"
-                    type="is-danger">
-                </b-icon>
+                <a v-if="!like" @click.prevent="likeMeme" class="vote"><i class="far fa-thumbs-up"></i></a>
+                    <a v-if="like" @click.prevent="likeMeme" class="vote vote-like"><i class="far fa-thumbs-up"></i></a>
+                <span class="vote-count vote-count--likes">{{ likesCount }}</span>
+                <a v-if="!dislike" @click.prevent="dislikeMeme" class="vote"><i class="far fa-thumbs-down"></i></a>
+                    <a v-if="dislike" @click.prevent="dislikeMeme" class="vote vote-dislike"><i class="far fa-thumbs-down"></i></a>
+                <span class="vote-count vote-count--dislikes">{{ dislikesCount }}</span>
             </div>
         </div>
     </div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
     name: "news",
     props: ['id', 'src', 'title', 'category', 'author'],
     data(){
-        return{}
+        return{
+            like: false,
+            dislike: false,
+            likesCount: 0,
+            dislikesCount: 0,
+        }
+    },
+    created: function() {
+        this.fetchVotes();
+        this.fetchUserVote();
+    },
+    methods: {
+        likeMeme: function () {
+            
+            const self = this;
+            
+            this.evaluateMeme('like').then(() => {
+                if(self.dislike){
+                    self.dislike = false;
+                    self.dislikesCount--;
+                }
+                
+                self.like = self.like ? false : true;
+                self.likesCount = self.like ? self.likesCount+1 : self.likesCount-1; 
+            })
+            .catch(redirect => redirect());
+        },
+        dislikeMeme: function(){
+
+            const self = this;
+
+            this.evaluateMeme('dislike').then(() => {
+                if(self.like) {
+                    self.like = false;
+                    self.likesCount--;
+                }
+                self.dislike = self.dislike ? false : true;
+                self.dislikesCount = self.dislike ? self.dislikesCount+1 : self.dislikesCount-1;
+            })
+            .catch(redirect => redirect());
+        },
+        evaluateMeme: function(vote) {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'put',
+                    url: '/api/vote',
+                    data: {
+                        which: vote,
+                        memeid: this.id
+                    }
+                }).then(response => {
+                    resolve();
+                }).catch(error => {
+                    reject(() => {
+                        window.location.href = '/auth/login';
+                    });
+                });
+                
+            });
+        },
+        fetchVotes: function() {
+            axios.get(`/api/vote/count/${this.id}`)
+            .then(votes => {
+                this.likesCount = votes.data.likes;
+                this.dislikesCount = votes.data.dislikes;
+            });
+        },
+        fetchUserVote: function() {
+            const user = this.$store.state.user;
+            
+            if(user.username){            
+                axios.get(`/api/vote/my/${this.id}`)
+                .then(userVote => {
+                    console.log("data:", userVote.data);
+                    if(userVote.data.which == 'like'){
+                        this.like = true;
+                    }else if(userVote.data.which == 'dislike'){
+                        this.dislike = true;
+                    }
+                });
+            }
+        }
     }
 }
 </script>
@@ -86,5 +165,31 @@ export default {
 
     .news-meme
         flex: 1 1
+
+    .vote
+
+        font-size: 2rem
+        color: lightgrey
+
+        margin: 0px 5px 5px 0px
+
+        user-select: none !important
+
+    .vote-like
+        color: green
+
+    .vote-dislike
+        color: red
+
+    .vote-count
+        font-size: 1.5rem
+
+        margin-right: 5px
+
+    .vote-count--likes
+        color: green
+
+    .vote-count--dislikes
+        color: red
 
 </style>

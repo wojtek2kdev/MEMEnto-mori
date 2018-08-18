@@ -5,13 +5,9 @@ const User = require('./user');
 const Meme = require('./meme');
 
 const Vote = database.define('vote', {
-    good: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-    },
-    bad: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
+    which: {
+        type: Sequelize.ENUM,
+        values: ['like','dislike']
     },
     memeid: {
         type: Sequelize.INTEGER,
