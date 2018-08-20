@@ -15,29 +15,34 @@ import axios from 'axios';
 
 export default {
     name: 'app',
+    props: ['username'],
     data(){
         return{
-            username: "test_user",
+            username: null,
             informations: [
-                {label: "Join", value: "2018-08-09", type: "date"},
-                {label: "Likes", value: 90, type: "likes"},
-                {label: "Dislikes", value: 50, type: "dislikes"}
             ]
         }
     },
     created: function(){
+        this.$store.commit('fetchUser');
         this.fetchUserInfo();
     },
     methods: {
         fetchUserInfo: function(){
 
-            const username = this.$route.params.username;
+            console.log("USERNAME PROFILE:", this.$route.params.username);
 
-            const url = username ? `/api/user/${username}` : `/api/user`;
+            const self = this;
+
+            const url = this.$route.params.username ? `/api/user/${this.$route.params.username}` : `/api/user`;
 
             axios.get(url)
             .then(userinfo => {
                 console.log(userinfo.data);
+                const data = userinfo.data;
+                self.setInformation("Join", data.created_at, "");
+                self.setInformation("Likes", data.likes, "likes");
+                self.setInformation("Dislikes", data.dislikes, "dislikes");
             });
         },
         setInformation: function(label, value, type){

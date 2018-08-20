@@ -44,6 +44,7 @@ const updateVote = async (req, res, next) => {
     const memeid = req.body.memeid;
     const username = req.session.user.username;
     const which = req.body.which;
+    const meme_owner = await getMemeOwner(memeid);
 
     const vote = await Vote.findOne({
         where: {
@@ -65,12 +66,22 @@ const updateVote = async (req, res, next) => {
         await Vote.create({
             memeid: memeid,
             username: username,
-            which: which
+            which: which,
+            meme_owner: meme_owner
         });
     }
 
     res.end();
 
+};
+
+const getMemeOwner = async memeid => {
+    const meme = await Meme.findOne({
+        where: {
+            id: memeid
+        }
+    });
+    return meme.owner;
 };
 
 exports.fetchMemeVotes = fetchMemeVotes;
