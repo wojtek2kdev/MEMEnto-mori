@@ -32,21 +32,28 @@
 
     <div class="navbar-end navbar-end__margin">
       <div class="navbar-item">
-        <div class="field is-grouped">
-          <p v-if="!isSessionActive()" class="control">
+        <div v-if="!isSessionActive()" class="field is-grouped">
+          <p class="control">
             <a class="button is-medium" href="/register">
               <span>
                 Sign Up
               </span>
             </a>
           </p>
-          <p v-if="!isSessionActive()" class="control">
+          <p class="control">
             <a class="button is-success is-medium" href="/auth/login">
               <span>Sign In</span>
             </a>
           </p>
-          <p v-else class="control">
-            <a class="button is-error is-medium" href="/auth/logout">
+        </div>
+        <div v-else class="field is-grouped">
+          <p class="control">
+            <a class="button is-medium" href="/profile">
+              <span>{{ this.$store.state.user.username }}</span>
+            </a>
+          </p>
+          <p class="control">
+            <a class="button is-danger is-medium" href="/auth/logout">
               <span>Log Out</span>
             </a>
           </p>

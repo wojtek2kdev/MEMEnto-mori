@@ -10,9 +10,8 @@ const addUser = async (req, res) => {
         password_confirmation: register_details.password_confirmation
     });
 
-    res.json({
-        username: user.username
-    });
+    req.session.user = user;
+    res.redirect("/");
 
 };
 

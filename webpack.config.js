@@ -8,7 +8,8 @@ module.exports = {
     main: './src/main.js',
     login: './src/login.js',
     register: './src/register.js',
-    addMeme: './src/addMeme.js'
+    addMeme: './src/addMeme.js',
+    profile: './src/profile.js'
   },
   output: {
     path: path.resolve(__dirname, './dist'),

@@ -14,10 +14,8 @@ export const store = new Vuex.Store({
         setMemesCount(state, {count}){
             state.count = count;
         },
-        fetchUser(state) {
-                axios.get("/api/user").then(user => {
-                    state.user = user.data;
-                });
+        setUser(state, {user}){
+            state.user = user;
         },
         fetchCategories(state){
             axios({
@@ -29,6 +27,15 @@ export const store = new Vuex.Store({
         }
     },
     actions: {
+        fetchUser(context){
+            return new Promise((resolve, reject) => {
+                axios.get("/api/user").then(user => {
+                    context.commit('setUser', {user: user.data});
+                    resolve();
+                })
+                .catch(err => reject());
+            });
+        },
         fetchMemesCount(context, {category}){
             return new Promise((resolve, reject) => {
                     axios({

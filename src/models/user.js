@@ -20,7 +20,12 @@ const User = database.define('users', {
 		validate: {
 			notEmpty: true
 		}
-    },
+	},
+	created_at: {
+		type: Sequelize.DATE,
+		allowNull: false,
+		defaultValue: Sequelize.literal('now()')
+	},
     password: {
 		type: Sequelize.VIRTUAL,
 		allowNull: false,

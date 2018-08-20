@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 const database = require('../config/database');
 
 const User = require('./user');
-const Meme = require('./meme');
 
 const Vote = database.define('vote', {
     which: {
@@ -16,12 +15,15 @@ const Vote = database.define('vote', {
     username: {
         type: Sequelize.STRING(20),
         allowNull: false,
+    },
+    meme_owner: {
+        type: Sequelize.STRING(20),
+        allowNull: false
     }
 },{
     freezeTableName: true,
 });
 
-Vote.belongsTo(Meme, {foreignKey: 'memeid', targetKey: 'id'});
 Vote.belongsTo(User, {foreignKey: 'username', targetKey: 'username'});
 
 module.exports = Vote;
