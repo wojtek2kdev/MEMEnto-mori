@@ -1,4 +1,4 @@
-const SessionController = require('../controllers/SessionController');
+const UserInfoController = require('../controllers/UserInfoController');
 const MemeInfoController = require('../controllers/MemeInfoController');
 
 const express = require('express');
@@ -9,7 +9,11 @@ const errorHandler = require('../middlewares/errors');
 
 
 api.get('/user',
-    SessionController.getUser
+    checkSession.onActiveSession(UserInfoController.getUserFromSession)
+);
+
+api.get('/user/:username',
+    errorHandler.catchAsync(UserInfoController.getUserByUsername)
 );
 
 api.get('/categories',
