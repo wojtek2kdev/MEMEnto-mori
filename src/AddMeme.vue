@@ -11,7 +11,7 @@ export default {
         return{}
     },
     created: function(){
-        this.$store.commit('fetchUser');
+        this.$store.dispatch('fetchUser');
     }
 }
 </script>

@@ -3,7 +3,11 @@ const router = express.Router();
 
 const PagesController = require('../controllers/PagesController');
 
-router.get('/', PagesController.profile);
+const checkSession = require('../middlewares/check-session');
+
+router.get('/', 
+    checkSession.onActiveSession(PagesController.profile)
+);
 
 router.get('/:username', PagesController.profile);
 

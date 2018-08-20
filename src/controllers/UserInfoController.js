@@ -6,7 +6,7 @@ const getUserFromSession = async (req, res, next) => {
 
     const user = req.session.user;
 
-    const votes = getVotes(user.username);
+    const votes = await getVotes(user.username);
 
     if(user){
         res.json({
@@ -36,6 +36,7 @@ const getUserByUsername = async (req, res, next) => {
     const votes = await getVotes(username);
 
     res.json({
+        id: user.id,
         username: username,
         created_at: user.created_at,
         likes: votes.likes,
@@ -45,6 +46,9 @@ const getUserByUsername = async (req, res, next) => {
 };
 
 const getVotes = async (username) => {
+
+    console.log('USERNAME:', username);
+
     const likes = await Vote.count({
         where: {
             which: 'like',

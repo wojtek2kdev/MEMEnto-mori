@@ -48,9 +48,10 @@ export default {
     }
   },
   created() {
-      this.$store.commit('fetchUser');
-      this.fetchMemes();
-      this.fetchMemesCount();
+      this.$store.dispatch('fetchUser').then(() => {
+        this.fetchMemes();
+        this.fetchMemesCount();
+      });
 
   },
   methods: {

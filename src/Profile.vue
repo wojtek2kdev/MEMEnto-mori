@@ -24,8 +24,12 @@ export default {
         }
     },
     created: function(){
-        this.$store.commit('fetchUser');
-        this.fetchUserInfo();
+        const self = this;
+
+        this.$store.dispatch('fetchUser').then(() => {
+            self.fetchUserInfo();
+        });
+        
     },
     methods: {
         fetchUserInfo: function(){
@@ -33,8 +37,10 @@ export default {
             console.log("USERNAME PROFILE:", this.$route.params.username);
 
             const self = this;
+            const username = this.$route.params.username;
+            const url = username ? `/api/user/${username}` : `/api/user`;
 
-            const url = this.$route.params.username ? `/api/user/${this.$route.params.username}` : `/api/user`;
+            this.username = username ? username : this.$store.state.user.username;
 
             axios.get(url)
             .then(userinfo => {
