@@ -1,12 +1,15 @@
 <template>
     <background>
         <navbar></navbar>
-        <div class="profile">
+        <div v-if="username" class="profile">
             <h1 class="profile-username">{{ username }}</h1>
             <div v-for="info of informations" :key="info" class="profile-info">
                 <h2 class="profile-info--label">{{ info.label }}</h2>
                 <p :class="`profile-info--value profile-info--value_${info.type}`">{{ info.value }}</p>
             </div>
+        </div>
+        <div v-else class="profile">
+            <h1 class="profile-error">{{ error }}</h1>
         </div>
     </background>
 </template>
@@ -20,7 +23,8 @@ export default {
         return{
             username: null,
             informations: [
-            ]
+            ],
+            error: "This user not exists"
         }
     },
     created: function(){
@@ -29,7 +33,7 @@ export default {
         this.$store.dispatch('fetchUser').then(() => {
             self.fetchUserInfo();
         });
-        
+
     },
     methods: {
         fetchUserInfo: function(){
@@ -40,12 +44,13 @@ export default {
             const username = this.$route.params.username;
             const url = username ? `/api/user/${username}` : `/api/user`;
 
-            this.username = username ? username : this.$store.state.user.username;
+            this.username = this.$store.state.user.username;
 
             axios.get(url)
             .then(userinfo => {
-                console.log(userinfo.data);
                 const data = userinfo.data;
+
+                self.username = data.username;
                 self.setInformation("Join", data.created_at, "");
                 self.setInformation("Likes", data.likes, "likes");
                 self.setInformation("Dislikes", data.dislikes, "dislikes");
@@ -86,6 +91,14 @@ export default {
             
             flex: 1 1
 
+        .profile-error
+            font-size: 1.5rem
+            font-weight: bold
+            text-align: center
+            color: red
+
+            margin: 50px 10px 50px 10px
+            
         .profile-info
             flex: 1 1
             margin: 10px
