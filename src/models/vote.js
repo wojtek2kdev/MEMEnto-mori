@@ -21,7 +21,6 @@ const Vote = database.define('vote', {
     freezeTableName: true,
 });
 
-Vote.belongsTo(Meme, {foreignKey: 'memeid', targetKey: 'id'});
 Vote.belongsTo(User, {foreignKey: 'username', targetKey: 'username'});
 
 module.exports = Vote;
