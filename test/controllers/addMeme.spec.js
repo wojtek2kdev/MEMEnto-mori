@@ -1,69 +1,35 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const fs = require('fs');
+const path = require('path');
 
 const expect = chai.expect;
 
-const serverAddr = "http://localhost:8081";
+const app = require('../../app.js');
 
 chai.use(chaiHttp);
 
 describe("POST /api/add", () => {
 
-    it("Send incorrect title, server should return error.", () => {
-
-        chai.request(serverAddr)
-            .post('/api/add')
-            .send({
-                'title' : 'Too long title for this website, we are very sorry',
-                'category' : 'Games'
-            })
-            .end((err, res) => {
-                expect(err).not.to.be.null;
-                expect(res).to.be.null;
-            });
-            
-    });
-
-    it("Send correct title, server should return status 200.", () => {
-
-        chai.request(serverAddr)
-            .post('/api/add')
-            .send({
-                'title' : 'Correct title',
-                'category' : 'Games'
-            })
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-            });
-            
-    });
-
-    it("Send incorrect category, server should return error.", () => {
-
-        chai.request(serverAddr)
-            .post('/api/add')
-            .send({
-                'title' : 'Test title',
-                'category' : 'None'
-            })
-            .end((err, res) => {
-                expect(err).not.to.be.null;
-                expect(res).to.be.null;
-            });
-            
-    });
-
     it("Send correct category, server should return status 200.", () => {
 
-        chai.request(serverAddr)
-            .post('/api/add')
+        const agent = chai.request.agent(app);
+
+        agent.post('/auth/login')
             .send({
-                'title' : 'Test title',
-                'category' : 'Games'
+                username: 'Test',
+                password: 'P4ssword!'
             })
-            .end((err, res) => {
-                expect(res).to.have.status(200);
+            .then(res => {
+                console.log("LOGGED");
+                agent.post('/api/add')
+                    .type("form")
+                    .field("title", "Some title")
+                    .field("category", "Games")
+                    .attach("meme", fs.readFileSync(path.join(__dirname, "../assets/img.png")), "img.png")
+                    .then(result => {
+                        expect(result).to.have.status(200);
+                    });
             });
             
     });

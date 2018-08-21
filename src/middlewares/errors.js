@@ -15,25 +15,27 @@ exports.catchMemeError = fn => {
     return (req, res, next) => {
         fn(req, res, next).catch(async err => {
             
-            fs.unlink(req.file.path);
-            
-            const meme = await Meme.findOne({
-                where: {
-                    src: req.file.path
-                }
-            });
-            
-            await Meme.destroy({
-                where: {
-                    src: meme.src
-                }
-            });
+            if(req.file){
 
-            await Vote.destroy({
-                where: {
-                    memeid: meme.id
+                fs.unlink(req.file.path);
+                
+                const meme = await Meme.findOne({
+                    where: {
+                        src: req.file.path
+                    }
+                });
+
+                if(meme){
+                    await Meme.destroy({
+                        where: {
+                            src: meme.src
+                        }
+                    });
                 }
-            });
+
+            }
+    
+           catchErrors(err, req, res, next);
 
         });
     }
