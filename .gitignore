@@ -4,11 +4,10 @@ dist/
 static/
 npm-debug.log
 yarn-error.log
-rest
 *.map
 
 src/config/recaptcha.js
-src/config/session.js
+src/config/database.pgsql.bak
 cleanimg
 
 # Editor directories and files

@@ -49,5 +49,7 @@ app.listen(8081, () => {
   console.log('Hello! MEMEnto-mori app listening on port 8081');
 });
 
+module.exports = app;
+
 
 
