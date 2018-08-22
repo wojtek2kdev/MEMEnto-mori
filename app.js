@@ -44,6 +44,20 @@ app.use(`/api/vote`, voteRoutes);
 
 //job which every minute deletes meme which is older than 1 hour.
 
+schedule.scheduleJob({rule: '*/60 * * * * *'}, async () => {	
+   const memes = await Meme.findAll({	
+    where: sequelize.literal(`created_at < now() - interval '1 hour'`)	
+  });	
+   for(let meme of memes){	
+     fs.unlink(meme.src, err => { if(err) throw err })	
+     await Meme.destroy({	
+      where: {	
+        src: meme.src	
+      }	
+    });	
+   }	
+ }); 
+
 
 app.listen(8081, () => {
   console.log('Hello! MEMEnto-mori app listening on port 8081');
