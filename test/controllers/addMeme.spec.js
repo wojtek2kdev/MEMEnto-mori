@@ -21,7 +21,6 @@ describe("POST /api/add", () => {
                 password: 'P4ssword!'
             })
             .then(res => {
-                console.log("LOGGED");
                 agent.post('/api/add')
                     .type("form")
                     .field("title", "Some title")
