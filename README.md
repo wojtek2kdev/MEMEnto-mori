@@ -1,11 +1,12 @@
 # MEMEnto-mori
 
-##### Simple node js project for upload and evaluate memes. Main idea is that each user can had uploaded one meme and can't upload next if previous is still alive. Each meme dies (is deleted) after hour since upload. Likes and dislikes which user earned for this meme are still active.
+##### Simple node.js project for uploading and evaluating memes. 
+##### Main idea standing behind this project is to allow any registered user upload memes. There is only one restriction: each user can upload one meme at a time and won't be allowed to upload another one until the last uploaded "dies". After lifecycle of the meme ends it is deleted from the servers and the user can upload new meme again. Likes and dislikes gathered by the uploaded content are stored permanently. 
 #
-#### Main technologies used in this project:
+#### Technological stack:
 
 ###### Back-end
-* Node js
+* Node.js
 * Express
 * PostgreSQL
 * Sequelize
@@ -21,11 +22,11 @@
 * Chai
 * Chai-http
 
-## Database relations:
+## ERD:
 
 ![relations](https://i.imgur.com/mhtqD28.png)
 
-## Realized tasks:
+## Features done:
 |Frontend|
 |--------|
 |Navbar with: Logo, Add, Categories[dropdown] and if session inactive (Sign In, Sign Up) if active (profile, Log Out)|
@@ -46,10 +47,10 @@
 |Made schedule job which delete all memes older than 1 hour every minute|
 |Configured database with Sequelize|
 |Exported sql database into src/config folder|
-|Made middleware wrappers which executes function if session is active or inactive|
-|Made rest api for fetching memes, votes, categories and for upload memes and evaluate them|
+|Middleware wrappers which executes function if session is active or inactive|
+|REST api for fetching memes, votes, categories and for upload memes and evaluate them|
 |Used 3 http methods, GET for getting json informations, POST for login/registration/add meme, PUT for evaluate memes|
-|Made controller which check recaptcha|
+|Controller checking recaptcha|
 
 |Testing|
 |-------|
@@ -58,7 +59,7 @@
 |Made test which ckeck if user was insert into database correct|
 |Made some integration tests which check add meme functionality|
 
-## Tasks to do:
+## TODO:
 
 ###### Frontend
 * Make RWD for all pages
@@ -71,6 +72,7 @@
 * Search and resolve all vulnerabilities
 * Make protection from website flooding
 * Learn more about S.O.L.I.D and clean code
+* Contrib note: DDD or EDD
 
 ###### Testing
 * Learn more about TDD
